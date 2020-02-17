@@ -1,0 +1,6 @@
+venv/
+
+.idea/
+
+chat-annotation/node_modules/
+
