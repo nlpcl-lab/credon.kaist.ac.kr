@@ -3,4 +3,9 @@ venv/
 .idea/
 
 chat-annotation/node_modules/
+chat-annotation/coverage/
+chat-annotation/build/
 
+chat-annotation/npm-debug.log*
+chat-annotation/yarn-debug.log*
+chat-annotation/yarn-errocdr.log*
