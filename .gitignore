@@ -9,3 +9,5 @@ chat-annotation/build/
 chat-annotation/npm-debug.log*
 chat-annotation/yarn-debug.log*
 chat-annotation/yarn-errocdr.log*
+
+.vscode/*
