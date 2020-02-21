@@ -25,15 +25,22 @@ body::-webkit-scrollbar {
 }
 
 .fullpage {
+  font-size: 24px;
   display: inline-table;
   height: 98vh;
-  width: 100%;
+  max-height: 98vh;
+  width: 100vw;
+  position: relative;
 }
 
 .fullpage-content {
   text-align: center;
-  display: table-cell;
-  vertical-align: middle;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .fullpage-content h1 {
