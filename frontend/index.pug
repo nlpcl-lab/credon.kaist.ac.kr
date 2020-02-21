@@ -12,7 +12,7 @@ html(lang="en")
   body
     include navbar.pug
 
-    .horizontal-scroll
+    #horizontalElement.horizontal-scroll
       .fullpage
         .fullpage-content
           h1 CREDON.
@@ -30,7 +30,10 @@ html(lang="en")
     script(src="static/js/ScrollMagic.min.js")
 
     script(type="text/javascript").
-      console.log('hello, world!');
+      horizontalElement.addEventListener('wheel', (ev) => {
+        ev.preventDefault();  // stop scrolling in another direction
+        horizontalElement.scrollLeft += (ev.deltaY + ev.deltaX);
+      });
 
 //-
   <!DOCTYPE html>
