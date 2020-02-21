@@ -13,23 +13,28 @@ html(lang="en")
     include navbar.pug
 
     #horizontalElement.horizontal-scroll
-      .fullpage
+      #product.fullpage
         .fullpage-content
           h1 CREDON.
-      .fullpage
+      #resource.fullpage
         .fullpage-content
           h1 Products.
           .fullpage-content-box
             el
-              li A
-              li B
-              li C
+              li 
+                a(href="http://credon.kaist.ac.kr:5678/") ULTRAFAST - Writing Assistant System
+              li
+                a(href="http://nlpgpu3.kaist.ac.kr:8081/") LOLOL - Humor Candidates Generation for Presentation
+              li
+                a(href="http://aftereffect.biopathway.org/") AfterEffect - Casuality Tracking Engine
               li D
               li E
               li F
-      .fullpage
+      #lab.fullpage
         .fullpage-content
-          h1 CREDON 3.
+          h1 Laboratory.
+          h2
+            a(href="http://nlpcl.kaist.ac.kr") nlpcl.kaist.ac.kr
 
     script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js")
@@ -41,6 +46,14 @@ html(lang="en")
       horizontalElement.addEventListener('wheel', (ev) => {
         ev.preventDefault();  // stop scrolling in another direction
         horizontalElement.scrollLeft += (ev.deltaY + ev.deltaX);
+      });
+
+      $(document).ready(function(){
+        $('.fullpage').hover(function(){
+          $(`#nav-${$(this).attr('id')}`).addClass('active');
+          }, function(){
+          $(`#nav-${$(this).attr('id')}`).removeClass('active');
+        });
       });
 
 //-
