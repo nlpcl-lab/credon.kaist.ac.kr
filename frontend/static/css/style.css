@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css?family=Bitter&display=swap");
+
+body {
+  font-family: "Bitter", serif;
+}
+
+body::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.navbar-brand img {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+
+.horizontal-scroll {
+  font-size: 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.fullpage {
+  display: inline-table;
+  height: 98vh;
+  width: 100%;
+}
+
+.fullpage-content {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.fullpage-content h1 {
+  font-size: 128px;
+}
