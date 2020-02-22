@@ -24,16 +24,24 @@ module.exports = {
         test: /\.less$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              modules: {
+                localIdentName: "[local]__[hash:base64:5]",
+              }
+            },
+          },
           'less-loader',
-        ],
+        ]
       },
       {
-        test: /\.css/,
+        test: /\.css$/,
         use: [
           'style-loader',
           'css-loader',
-        ],
+        ]
       },
     ]
   },

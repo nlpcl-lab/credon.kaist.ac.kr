@@ -26,7 +26,6 @@ class App extends React.Component {
 
     return (
       <div>
-        헬로
         <ConfigProvider locale={ko_KR}>
           {children}
         </ConfigProvider>
