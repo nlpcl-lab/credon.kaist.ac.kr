@@ -1,5 +1,8 @@
 import dva from 'dva';
-import {message} from 'antd'
+import { message } from 'antd';
+
+import router from './router';
+import appModel from './models/app';
 import './index.less';
 
 message.config({
@@ -7,8 +10,7 @@ message.config({
   maxCount: 2,
 });
 
-// 1. Initialize
 const app = dva();
-app.model(require('./models/app').default);
-app.router(require('./router').default);
+app.model(appModel);
+app.router(router);
 app.start('#root');
