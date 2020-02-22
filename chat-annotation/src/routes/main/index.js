@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'dva';
-import {Table, Button} from 'antd';
+import { connect } from 'dva';
+import { Table, Button } from 'antd';
 
 import styles from './index.less';
 
@@ -13,8 +13,13 @@ class Main extends React.Component {
   render() {
     return (
       <div className={styles.main}>
-        <div className={styles.chatBox}>
-          <Button>버튼</Button>
+        <div className={styles.chat}>
+          <div className={styles.balloon}>
+
+          </div>
+          <div className={styles.inputBox}>
+            <Button>버튼</Button>
+          </div>
         </div>
       </div>
     );

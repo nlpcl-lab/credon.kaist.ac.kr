@@ -1,10 +1,19 @@
 @import '../../color';
 
 .main {
-  .chatBox {
-    width: 400px;
-    height: 500px;
+  .chat {
+    width: 500px;
     margin: 0 auto;
-    border: 1px solid @oc-gray-4;
+
+    .balloon {
+      height: 500px;
+      border-top: 1px solid @oc-gray-4;
+      border-left: 1px solid @oc-gray-4;
+      border-right: 1px solid @oc-gray-4;
+    }
+    .inputBox {
+      height: 50px;
+      border: 1px solid @oc-gray-4;
+    }
   }
 }
