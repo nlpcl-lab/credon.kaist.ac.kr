@@ -1,0 +1,87 @@
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons")
+
+    link(rel="stylesheet" href="static/css/material.min.css")
+    link(rel="stylesheet" href="static/css/style.css")
+    title CREDON
+  body
+    include navbar.pug
+
+    #horizontalElement.horizontal-scroll
+      #product.fullpage
+        .fullpage-content
+          h1 CREDON.
+      #resource.fullpage
+        .fullpage-content
+          h1 Products.
+          .fullpage-content-box
+            el
+              li 
+                a(href="http://credon.kaist.ac.kr:5678/") ULTRAFAST - Writing Assistant System
+              li
+                a(href="http://nlpgpu3.kaist.ac.kr:8081/") LOLOL - Humor Candidates Generation for Presentation
+              li
+                a(href="http://aftereffect.biopathway.org/") AfterEffect - Casuality Tracking Engine
+              li D
+              li E
+              li F
+      #lab.fullpage
+        .fullpage-content
+          h1 Lab.
+          h2
+            a(href="http://nlpcl.kaist.ac.kr") nlpcl.kaist.ac.kr
+
+    script(src="https://code.jquery.com/jquery-3.3.1.slim.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js")
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js")
+
+    script(src="static/js/ScrollMagic.min.js")
+
+    script(type="text/javascript").
+      horizontalElement.addEventListener('wheel', (ev) => {
+        ev.preventDefault();  // stop scrolling in another direction
+        horizontalElement.scrollLeft += (ev.deltaY + ev.deltaX);
+      });
+
+      $(document).ready(function(){
+        $('.fullpage').hover(function(){
+          $(`#nav-${$(this).attr('id')}`).addClass('active');
+          }, function(){
+          $(`#nav-${$(this).attr('id')}`).removeClass('active');
+        });
+      });
+
+//-
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta content="initial-scale=1, shrink-to-fit=no, width=device-width" name="viewport">
+
+      <!-- CSS -->
+      <!-- Add Material font (Roboto) and Material icon as needed -->
+      <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+      <!-- Add Material CSS, replace Bootstrap CSS -->
+      <link href="path_to/material.min.css" rel="stylesheet">
+    </head>
+    <body>
+      <h1>Hello, world!</h1>
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+      <!-- Then Material JavaScript on top of Bootstrap JavaScript -->
+      <script src="path_to/material.min.js"></script>
+    </body>
+  </html>

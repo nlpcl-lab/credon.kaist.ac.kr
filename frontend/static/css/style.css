@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css?family=Bitter&display=swap");
+
+body {
+  font-family: "Bitter", serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.navbar-brand img {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+
+.horizontal-scroll {
+  font-size: 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.fullpage {
+  font-size: 24px;
+  display: inline-table;
+  height: 98vh;
+  max-height: 98vh;
+  width: 100vw;
+  position: relative;
+}
+
+.fullpage-content {
+  text-align: center;
+  max-width: 100vw;
+  word-break: break-all; /*  */
+  word-wrap: break-word; /* if you want to cut the complete word */
+  white-space: normal; /* be sure its not 'nowrap'! ! ! :/ */
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.fullpage-content h1 {
+  font-size: 10vw;
+}

@@ -8,3 +8,5 @@ chat-annotation/dist/
 chat-annotation/npm-debug.log*
 chat-annotation/yarn-debug.log*
 chat-annotation/yarn-errocdr.log*
+
+.vscode/*

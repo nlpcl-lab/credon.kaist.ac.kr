@@ -1,0 +1,1 @@
+http-server ./dist -a 0.0.0.0 -p 7777
