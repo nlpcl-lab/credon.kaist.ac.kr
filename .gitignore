@@ -3,8 +3,7 @@ venv/
 .idea/
 
 chat-annotation/node_modules/
-chat-annotation/coverage/
-chat-annotation/build/
+chat-annotation/dist/
 
 chat-annotation/npm-debug.log*
 chat-annotation/yarn-debug.log*
