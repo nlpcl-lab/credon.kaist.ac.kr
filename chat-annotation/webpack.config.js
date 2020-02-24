@@ -9,7 +9,7 @@ module.exports = {
     chunkFilename: '[id].[hash].js'
   },
   resolve: {
-    extensions: ['.js', '.less', '.css']
+    extensions: ['.js', '.less', '.css', '.svg']
   },
   module: {
     rules: [
@@ -29,7 +29,7 @@ module.exports = {
             options: {
               sourceMap: true,
               modules: {
-                localIdentName: "[local]__[hash:base64:5]",
+                localIdentName: '[local]__[hash:base64:5]',
               }
             },
           },
@@ -41,6 +41,12 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
+        ]
+      },
+      {
+        test: /\.svg/,
+        use: [
+          'file-loader',
         ]
       },
     ]

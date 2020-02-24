@@ -1,33 +1,34 @@
+import React from 'react';
+import _ from 'lodash';
 import queryString from 'query-string';
 import pathToRegexp from 'path-to-regexp';
-import {routerRedux} from 'dva/router';
-import {Icon, message, Modal} from 'antd';
-import _ from 'lodash';
-import React from 'react';
+import { routerRedux } from 'dva/router';
+import { Icon, message, Modal } from 'antd';
+
+import scenario_sample from './scenario_sample.json';
 
 export default {
   namespace: 'app',
   state: {
-    me: {
-      id: -1,
-      nickname: '로그인이 필요합니다',
-      thumbnail: 'https://storage.cobak.co/profile/basic_profile_img05.png',
-    },
-    token_list: [],
+    index: 0,
+    scenario: scenario_sample,
   },
   subscriptions: {
-    setupHistory({dispatch, history}) {
-      history.listen(({pathname, search}) => {
+    setupHistory({ dispatch, history }) {
+      console.log('scenario_sample:', scenario_sample);
+
+      history.listen(({ pathname, search }) => {
+
       });
     },
   },
   effects: {
-    * goTo({payload}, {put, call}) {
+    * goTo({ payload }, { put, call }) {
       yield put(routerRedux.push(payload));
     },
   },
   reducers: {
-    updateState(state, {payload}) {
+    updateState(state, { payload }) {
       return {
         ...state,
         ...payload,

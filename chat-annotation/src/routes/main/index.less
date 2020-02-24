@@ -7,70 +7,77 @@
 @input-top-margin: 10px;
 
 .main {
-  display: flex;
-  width: @board-width + @chat-width;
-  height: 100%;
-  margin: 50px auto 10px auto;
-  align-items: center;
-  border: 1px solid @oc-gray-4;
+  > .row1 {
+    display: flex;
+    width: @board-width + @chat-width;
+    height: 100%;
+    margin: 50px auto 10px auto;
+    align-items: center;
+    border: 1px solid @oc-gray-4;
 
-  > .board {
-    width: @board-width;
-    height: @height;
-    padding: 10px 15px;
-    border-right: 1px solid @oc-gray-4;
-    overflow-y: auto;
-    > .title {
-      font-weight: bold;
-      font-size: 17px;
-      margin-bottom: 10px;
+    > .board {
+      width: @board-width;
+      height: @height;
+      padding: 10px 15px;
+      border-right: 1px solid @oc-gray-4;
+      overflow-y: auto;
+      > .title {
+        font-weight: bold;
+        font-size: 17px;
+        margin-bottom: 10px;
+      }
+
+      > .body {
+
+      }
     }
 
-    > .body {
+    > .chat {
+      width: @chat-width;
+      height: @height;
+      position: relative;
 
+      > .rollback {
+        position: absolute;
+        bottom: 15px;
+        right: -45px;
+      }
+
+      > .bubbles {
+        height: @height - @input-height - @input-top-margin;
+        overflow-y: auto;
+        padding-bottom: 10px;
+      }
+
+      > .inputBox {
+        margin-top: @input-top-margin;
+        padding: 0 10px 10px 10px;
+        display: flex;
+        height: @input-height;
+
+        > .input {
+          width: 80%;
+          padding: 3px 16px;
+          background-color: @oc-gray-1;
+          outline: none;
+          border: none;
+          border-radius: 16px 0 0 16px;
+        }
+
+        > .sendButton {
+          width: 20%;
+          padding: 6px;
+          border-radius: 0 16px 16px 0;
+          text-align: center;
+          border: 1px solid @oc-gray-3;
+          cursor: pointer;
+        }
+      }
     }
   }
 
-  > .chat {
-    width: @chat-width;
-    height: @height;
-    position: relative;
-
-    > .rollback {
-      position: absolute;
-      bottom: 15px;
-      right: -45px;
-    }
-
-    > .bubbles {
-      height: @height - @input-height - @input-top-margin;
-      overflow-y: auto;
-      padding-bottom: 10px;
-    }
-
-    > .inputBox {
-      margin-top: @input-top-margin;
-      padding: 0 10px 10px 10px;
-      display: flex;
-      height: @input-height;
-
-      > .input {
-        width: 80%;
-        padding: 3px 16px;
-        background-color: @oc-gray-1;
-        outline: none;
-        border: none;
-        border-radius: 16px 0 0 16px;
-      }
-
-      > .sendButton {
-        width: 20%;
-        padding: 6px;
-        border-radius: 0 16px 16px 0;
-        text-align: center;
-        border: 1px solid @oc-gray-3;
-        cursor: pointer;
-      }
-    }
+  > .row2 {
+    width: @board-width + @chat-width;
+    margin: 20px auto 10px auto;
   }
 }
