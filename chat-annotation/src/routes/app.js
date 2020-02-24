@@ -1,8 +1,8 @@
 import React from 'react';
-import {connect} from 'dva';
-import PropTypes from 'prop-types'
-import {ConfigProvider} from 'antd';
-import ko_KR from 'antd/lib/locale-provider/ko_KR';
+import { connect } from 'dva';
+import PropTypes from 'prop-types';
+import { ConfigProvider } from 'antd';
+import koKR from 'antd/lib/locale-provider/ko_KR';
 import 'moment/locale/ko';
 
 import styles from './app.less';
@@ -16,20 +16,19 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
+    const { location } = this.props;
+    if (location !== prevProps.location) {
       window.scrollTo(0, 0);
     }
   }
 
   render() {
-    const {children, app, location} = this.props;
+    const { children, app, location } = this.props;
 
     return (
-      <div>
-        <ConfigProvider locale={ko_KR}>
-          {children}
-        </ConfigProvider>
-      </div>
+      <ConfigProvider locale={koKR}>
+        {children}
+      </ConfigProvider>
     );
   }
 }

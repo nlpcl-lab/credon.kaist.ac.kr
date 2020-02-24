@@ -1,19 +1,66 @@
 @import '../../color';
 
-.main {
-  .chat {
-    width: 500px;
-    margin: 0 auto;
+@board-width: 700px;
+@chat-width: 450px;
+@height: 600px;
+@input-height: 50px;
 
-    .balloon {
-      height: 500px;
-      border-top: 1px solid @oc-gray-4;
-      border-left: 1px solid @oc-gray-4;
-      border-right: 1px solid @oc-gray-4;
+.main {
+  display: flex;
+  width: @board-width + @chat-width;
+  height: 100%;
+  margin: 50px auto 10px auto;
+  align-items: center;
+  border: 1px solid @oc-gray-4;
+
+  > .board {
+    width: @board-width;
+    height: @height;
+    padding: 10px 15px;
+    border-right: 1px solid @oc-gray-4;
+    overflow-y: auto;
+    > .title {
+      font-weight: bold;
+      font-size: 17px;
+      margin-bottom: 10px;
     }
-    .inputBox {
-      height: 50px;
-      border: 1px solid @oc-gray-4;
+
+    > .body {
+
+    }
+  }
+
+  > .chat {
+    width: @chat-width;
+    height: @height;
+
+    > .bubbles {
+      height: @height - @input-height;
+      overflow-y: auto;
+    }
+
+    > .inputBox {
+      padding: 0 10px 10px 10px;
+      display: flex;
+      height: @input-height;
+
+      > .input {
+        width: 80%;
+        padding: 3px 16px;
+        background-color: @oc-gray-1;
+        outline: none;
+        border: none;
+        border-radius: 16px 0 0 16px;
+      }
+
+      > .sendButton {
+        width: 20%;
+        padding: 6px;
+        border-radius: 0 16px 16px 0;
+        text-align: center;
+        border: 1px solid @oc-gray-3;
+        cursor: pointer;
+      }
     }
   }
 }
