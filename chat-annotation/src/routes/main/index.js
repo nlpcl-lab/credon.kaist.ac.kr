@@ -1,6 +1,7 @@
 import React from 'react';
+import _ from 'lodash';
 import { connect } from 'dva';
-import { Table, Button } from 'antd';
+import { Table, Button, Icon } from 'antd';
 
 import styles from './index.less';
 import { Bubble } from '../../components';
@@ -24,16 +25,34 @@ class Main extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { chat } = this.state;
+    if (chat !== prevState.chat) {
+      this.bubbles.scrollTop = this.bubbles.scrollHeight;
+    }
+  }
+
   addMessage = () => {
     const { chat, input } = this.state;
     if (!input) return;
-    chat.push({
+
+    const newChat = _.cloneDeep(chat);
+    newChat.push({
       user: 'anonymous',
       text: input,
     });
     this.setState({
-      chat,
+      chat: newChat,
       input: '',
+    });
+  };
+
+  onClickRollback = () => {
+    const { chat } = this.state;
+    const newChat = _.cloneDeep(chat);
+    newChat.pop();
+    this.setState({
+      chat: newChat,
     });
   };
 
@@ -76,7 +95,18 @@ class Main extends React.Component {
           </div>
         </div>
         <div className={styles.chat}>
-          <div className={styles.bubbles}>
+          <Button
+            className={styles.rollback}
+            shape="circle"
+            icon="rollback"
+            onClick={() => this.onClickRollback()}
+          />
+          <div
+            ref={(el) => {
+              this.bubbles = el;
+            }}
+            className={styles.bubbles}
+          >
             {chat.map((msg) => <Bubble text={msg.text} alignLeft={msg.user === 'bot'}/>)}
           </div>
           <div className={styles.inputBox}>

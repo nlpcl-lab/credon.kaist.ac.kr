@@ -4,6 +4,7 @@
 @chat-width: 450px;
 @height: 600px;
 @input-height: 50px;
+@input-top-margin: 10px;
 
 .main {
   display: flex;
@@ -33,13 +34,22 @@
   > .chat {
     width: @chat-width;
     height: @height;
+    position: relative;
+
+    > .rollback {
+      position: absolute;
+      bottom: 15px;
+      right: -45px;
+    }
 
     > .bubbles {
-      height: @height - @input-height;
+      height: @height - @input-height - @input-top-margin;
       overflow-y: auto;
+      padding-bottom: 10px;
     }
 
     > .inputBox {
+      margin-top: @input-top-margin;
       padding: 0 10px 10px 10px;
       display: flex;
       height: @input-height;
