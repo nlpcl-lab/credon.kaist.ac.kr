@@ -11,19 +11,36 @@ class Main extends React.Component {
     super(props);
 
     this.state = {
-      chat: [{
-        user: 'bot',
-        text: 'hello',
-      }, {
-        user: 'anonymous',
-        text: 'hi',
-      }],
+      input: '',
+      chat: [
+        {
+          user: 'bot',
+          text: 'hello',
+        }, {
+          user: 'anonymous',
+          text: 'hi',
+        }
+      ],
     };
   }
 
+  addMessage = () => {
+    const { chat, input } = this.state;
+    if (!input) return;
+    chat.push({
+      user: 'anonymous',
+      text: input,
+    });
+    this.setState({
+      chat,
+      input: '',
+    });
+  };
+
 
   render() {
-    const { chat } = this.state;
+    const { chat, input } = this.state;
+
     return (
       <div className={styles.main}>
         <div className={styles.board}>
@@ -63,8 +80,23 @@ class Main extends React.Component {
             {chat.map((msg) => <Bubble text={msg.text} alignLeft={msg.user === 'bot'}/>)}
           </div>
           <div className={styles.inputBox}>
-            <input className={styles.input} placeholder="input"/>
-            <div className={styles.sendButton}>Send</div>
+            <input
+              value={input}
+              onChange={(e) => this.setState({ input: e.target.value })}
+              className={styles.input}
+              placeholder="input"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  this.addMessage();
+                }
+              }}
+            />
+            <div
+              className={styles.sendButton}
+              onClick={() => this.addMessage()}
+            >
+              Send
+            </div>
           </div>
         </div>
       </div>
