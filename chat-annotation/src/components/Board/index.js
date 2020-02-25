@@ -9,13 +9,11 @@ import styles from './index.less';
 class Board extends React.Component {
   render() {
     const { title, body, highlightText } = this.props;
-    console.log('body :', body);
-    console.log('highlightText:', highlightText);
-
     return (
       <div className={styles.board}>
         {title ? <div className={styles.title}>{title}</div> : null}
         {body ? <Highlighter
+          className={styles.body}
           findChunks={() => {
             const start = body.indexOf(highlightText);
             if (start === -1) {
@@ -29,7 +27,7 @@ class Board extends React.Component {
               end: start + highlightText.length,
             }];
           }}
-          textToHighlight={body}
+          textToHighlight={body ? body : ''}
         /> : null}
         {!title && !body ? <Empty className={styles.empty} description={false}/> : null}
       </div>

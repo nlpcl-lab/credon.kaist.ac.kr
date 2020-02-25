@@ -29,7 +29,7 @@ class Main extends React.Component {
       const { isUserTyping } = this.state;
 
       if (isUserTyping) return;
-      if (['TYPING', 'CHOICE'].indexOf(scenario[progress].type) >= 0 && !scenario[progress].response) {
+      if (['TYPING', 'CHOICE'].indexOf(scenario[progress].type) >= 0 && _.get(scenario, `${progress}.response`, []).length === 0) {
         return;
       }
 
@@ -150,6 +150,46 @@ class Main extends React.Component {
     }
   };
 
+  renderInput = () => {
+    const { app, dispatch } = this.props;
+    const { input, isBotTyping } = this.state;
+    const {
+      title,
+      body,
+      highlight_text,
+      scenario,
+      progress
+    } = app;
+
+    const currentScene = scenario[progress];
+    if (_.get(currentScene, 'type') === 'CHOICE' && _.get(currentScene, 'response', []).length === 0) {
+      return !isBotTyping ?
+        <OptionModal options={_.get(currentScene, 'options')}
+                     onSelectValue={(value) => this.addMessage(value)}
+        /> : null;
+    }
+
+    return <div className={styles.inputBox}>
+      <input
+        value={input}
+        onChange={(e) => this.updateInput(e.target.value)}
+        className={styles.input}
+        placeholder="Type a message..."
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            this.addMessage(input);
+          }
+        }}
+      />
+      <div
+        className={styles.sendButton}
+        onClick={() => this.addMessage(input)}
+      >
+        Send
+      </div>
+    </div>;
+  };
+
 
   render() {
     const { app, dispatch } = this.props;
@@ -163,7 +203,6 @@ class Main extends React.Component {
     } = app;
 
     const messages = this.buildMessages();
-    const currentScene = scenario[progress];
 
     return (
       <div className={styles.main}>
@@ -195,30 +234,7 @@ class Main extends React.Component {
                 return <Bubble key={index} text={msg.text} alignLeft={!msg.is_user}/>;
               })}
             </div>
-            {_.get(currentScene, 'type') === 'CHOICE' && _.get(currentScene, 'response', []).length === 0 ?
-              <OptionModal
-                options={_.get(currentScene, 'options')}
-                onSelectValue={(value) => this.addMessage(value)}
-              /> :
-              <div className={styles.inputBox}>
-                <input
-                  value={input}
-                  onChange={(e) => this.updateInput(e.target.value)}
-                  className={styles.input}
-                  placeholder="Type a message..."
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                      this.addMessage(input);
-                    }
-                  }}
-                />
-                <div
-                  className={styles.sendButton}
-                  onClick={() => this.addMessage(input)}
-                >
-                  Send
-                </div>
-              </div>}
+            {this.renderInput()}
           </div>
         </div>
         <div className={styles.row2}>
