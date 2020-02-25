@@ -46,6 +46,7 @@
       > .bubbles {
         height: @height - @input-height - @input-top-margin;
         overflow-y: auto;
+        padding-top: 5px;
         padding-bottom: 10px;
       }
 
@@ -79,5 +80,9 @@
   > .row2 {
     width: @board-width + @chat-width;
     margin: 20px auto 10px auto;
+
+    > div {
+      height: 600px;
+    }
   }
 }

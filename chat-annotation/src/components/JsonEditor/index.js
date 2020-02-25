@@ -6,7 +6,7 @@ import styles from './index.less';
 
 class JsonEditor extends React.Component {
   componentDidMount() {
-    this.editor.expandAll();
+    // this.editor.expandAll();
   }
 
   render() {
@@ -16,6 +16,7 @@ class JsonEditor extends React.Component {
         ref={(el) => {
           this.editor = el;
         }}
+        mode="code"
         value={value}
         onChange={onChange}
       />

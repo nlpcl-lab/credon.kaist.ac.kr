@@ -14,53 +14,80 @@ class Main extends React.Component {
 
     this.state = {
       input: '',
-      chat: [
-        {
-          user: 'bot',
-          text: 'hello',
-        }, {
-          user: 'anonymous',
-          text: 'hi',
-        }
-      ],
+      isTyping: false,
     };
+    this.timeoutId = null;
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      console.log('tick!');
+      const { app, dispatch } = this.props;
+      const { progress, scenario } = app;
+      const { input, isTyping } = this.state;
+
+      if (isTyping) return;
+
+      if (progress + 1 < scenario.length) {
+        dispatch({
+          type: 'app/updateState',
+          payload: {
+            progress: progress + 1,
+          },
+        });
+      }
+    }, 4000);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { chat } = this.state;
-    if (chat !== prevState.chat) {
+    const { app } = this.props;
+    const { scenario, progress } = app;
+    if (progress !== prevProps.app.progress) {
       this.bubbles.scrollTop = this.bubbles.scrollHeight;
     }
   }
 
-  addMessage = () => {
-    const { chat, input } = this.state;
-    if (!input) return;
 
-    const newChat = _.cloneDeep(chat);
-    newChat.push({
-      user: 'anonymous',
-      text: input,
-    });
+  updateInput = (input) => {
     this.setState({
-      chat: newChat,
-      input: '',
+      input,
+      isTyping: true,
     });
+    if (this.timeoutId) clearTimeout(this.timeoutId);
+    this.timeoutId = setTimeout(() => {
+      this.setState({
+        isTyping: false,
+      });
+      this.timeoutId = null;
+    }, 500);
   };
 
-  onClickRollback = () => {
-    const { chat } = this.state;
-    const newChat = _.cloneDeep(chat);
-    newChat.pop();
-    this.setState({
-      chat: newChat,
-    });
-  };
 
+  buildMessages = () => {
+    const { app } = this.props;
+    const messages = [];
+    const { progress, scenario } = app;
+
+    for (let i = 0; i <= progress && i < scenario.length; i++) {
+      messages.push({
+        is_user: false,
+        text: scenario[i].message,
+      });
+      if (scenario[i].response) {
+        messages.push({
+          is_user: true,
+          text: scenario[i].response,
+        });
+      }
+    }
+    return messages;
+  };
 
   render() {
     const { app, dispatch } = this.props;
-    const { chat, input } = this.state;
+    const { input } = this.state;
+
+    const messages = this.buildMessages();
 
     return (
       <div className={styles.main}>
@@ -122,12 +149,12 @@ class Main extends React.Component {
               }}
               className={styles.bubbles}
             >
-              {chat.map((msg) => <Bubble text={msg.text} alignLeft={msg.user === 'bot'}/>)}
+              {messages.map((msg) => <Bubble text={msg.text} alignLeft={!msg.is_user}/>)}
             </div>
             <div className={styles.inputBox}>
               <input
                 value={input}
-                onChange={(e) => this.setState({ input: e.target.value })}
+                onChange={(e) => this.updateInput(e.target.value)}
                 className={styles.input}
                 placeholder="input"
                 onKeyDown={(e) => {

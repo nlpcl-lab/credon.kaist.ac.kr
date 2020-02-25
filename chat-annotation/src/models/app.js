@@ -1,22 +1,18 @@
-import React from 'react';
 import _ from 'lodash';
 import queryString from 'query-string';
 import pathToRegexp from 'path-to-regexp';
 import { routerRedux } from 'dva/router';
-import { Icon, message, Modal } from 'antd';
 
-import scenario_sample from './scenario_sample.json';
+import scenarioSample from './scenario_sample.json';
 
 export default {
   namespace: 'app',
   state: {
-    index: 0,
-    scenario: scenario_sample,
+    progress: 0,
+    scenario: scenarioSample,
   },
   subscriptions: {
     setupHistory({ dispatch, history }) {
-      console.log('scenario_sample:', scenario_sample);
-
       history.listen(({ pathname, search }) => {
 
       });
