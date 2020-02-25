@@ -7,8 +7,9 @@ import styles from './index.less';
 
 class BounceSpinner extends React.Component {
   render() {
+    const { style } = this.props;
     return (
-      <div className={styles.spinner}>
+      <div className={styles.spinner} style={{ ...style }}>
         <div className={styles.bounce1}/>
         <div className={styles.bounce2}/>
         <div/>

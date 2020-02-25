@@ -228,10 +228,14 @@ class Main extends React.Component {
               className={styles.bubbles}
             >
               {messages.map((msg, index) => {
-                if (index === messages.length - 1 && isBotTyping && !msg.is_user) {
-                  return <BounceSpiner/>;
-                }
-                return <Bubble key={index} text={msg.text} alignLeft={!msg.is_user}/>;
+                return (
+                  <Bubble
+                    loading={index === messages.length - 1 && isBotTyping && !msg.is_user}
+                    key={index}
+                    text={msg.text}
+                    alignLeft={!msg.is_user}
+                  />
+                );
               })}
             </div>
             {this.renderInput()}
