@@ -45,7 +45,7 @@
     "message": "Please read carefully the document on the left! When you are done reading, please click ‘continue’!",
     "update_document": {
       "title": "Should students be taught to compete or to cooperate?",
-      "body": "It is always said that competition can effectively promote the development of economy. In order to survive in the competition ...",
+      "body": "It is always said that competition can effectively promote the development of economy. In order to survive in the competition, companies continue to improve their products and service, and as a result, the whole society prospers. However, when we discuss the issue of competition or cooperation, what we are concerned about is not the whole society, but the development of an individual's whole life. First of all, through cooperation, children can learn about interpersonal skills which are significant in the future life of all students. What we acquired from team work is not only how to achieve the same goal with others but more importantly, how to get along with others. During the process of cooperation, children can learn about how to listen to opinions of others, how to communicate with others, how to think comprehensively, and even how to compromise with other team members when conflicts occurred. All of these skills help them to get on well with other people and will benefit them for the whole life.",
       "highlight_text": ""
     },
     "options": [
@@ -59,7 +59,7 @@
     "type": "CHOICE",
     "message": "(Q6/11) Do you think the highlighted sentence is well-presented, eloquently?",
     "update_document": {
-      "highlight_text": "competition and cooperation we can receive the same conclusion that a more cooperative attitudes towards life is more profitable in one"
+      "highlight_text": "However, when we discuss the issue of competition or cooperation, what we are concerned about is not the whole society, but the development of an individual's whole life."
     },
     "options": [
       {

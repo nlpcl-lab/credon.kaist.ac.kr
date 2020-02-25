@@ -4,14 +4,21 @@
 .board {
   height: 100%;
 
+  :global {
+    mark {
+      background-color: #f3f7a1;
+    }
+  }
+
   > .title {
     font-weight: bold;
     font-size: 17px;
     margin-bottom: 10px;
+    animation: fadeIn 1s ease-out;
   }
 
   > .body {
-
+    animation: fadeIn 1s ease-out;
   }
 
   > .empty {

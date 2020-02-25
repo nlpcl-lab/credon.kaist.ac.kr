@@ -15,32 +15,45 @@ class Main extends React.Component {
 
     this.state = {
       input: '',
-      isTyping: false,
+      isUserTyping: false,
+      isBotTyping: false,
     };
-    this.timeoutId = null;
+    this.userTypingTimeoutId = null;
+    this.botTypingTimeoutId = null;
   }
 
   componentDidMount() {
     setInterval(() => {
-      console.log('tick!');
       const { app, dispatch } = this.props;
       const { progress, scenario } = app;
-      const { isTyping } = this.state;
+      const { isUserTyping } = this.state;
 
-      if (isTyping) return;
+      if (isUserTyping) return;
       if (['TYPING', 'CHOICE'].indexOf(scenario[progress].type) >= 0 && !scenario[progress].response) {
         return;
       }
 
       if (progress + 1 < scenario.length) {
+        this.setState({ isBotTyping: true });
+        if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
+        this.botTypingTimeoutId = setTimeout(() => {
+          this.setState({ isBotTyping: false, });
+          this.botTypingTimeoutId = null;
+        }, 3000);
+
         scenario[progress + 1].displayed_at = moment()
           .toISOString();
 
+        const payload = { progress: progress + 1 };
+
+        const scene = scenario[progress + 1];
+        if (_.get(scene, 'update_document.title', '')) payload.title = _.get(scene, 'update_document.title');
+        if (_.get(scene, 'update_document.body', '')) payload.body = _.get(scene, 'update_document.body');
+        if (_.get(scene, 'update_document.highlight_text', '')) payload.highlight_text = _.get(scene, 'update_document.highlight_text');
+
         dispatch({
           type: 'app/updateState',
-          payload: {
-            progress: progress + 1,
-          },
+          payload,
         });
       }
     }, 4000);
@@ -59,14 +72,14 @@ class Main extends React.Component {
   updateInput = (input) => {
     this.setState({
       input,
-      isTyping: true,
+      isUserTyping: true,
     });
-    if (this.timeoutId) clearTimeout(this.timeoutId);
-    this.timeoutId = setTimeout(() => {
+    if (this.userTypingTimeoutId) clearTimeout(this.userTypingTimeoutId);
+    this.userTypingTimeoutId = setTimeout(() => {
       this.setState({
-        isTyping: false,
+        isUserTyping: false,
       });
-      this.timeoutId = null;
+      this.userTypingTimeoutId = null;
     }, 500);
   };
 
@@ -123,7 +136,7 @@ class Main extends React.Component {
     });
     this.setState({
       input: '',
-      isTyping: false,
+      isUserTyping: false,
     });
     dispatch({
       type: 'app/updateState',
@@ -140,11 +153,11 @@ class Main extends React.Component {
 
   render() {
     const { app, dispatch } = this.props;
-    const { input } = this.state;
+    const { input, isBotTyping } = this.state;
     const {
       title,
       body,
-      highlightText,
+      highlight_text,
       scenario,
       progress
     } = app;
@@ -159,7 +172,7 @@ class Main extends React.Component {
             <Board
               title={title}
               body={body}
-              highlightText={highlightText}
+              highlightText={highlight_text}
             />
           </div>
           <div className={styles.chat}>
@@ -175,8 +188,12 @@ class Main extends React.Component {
               }}
               className={styles.bubbles}
             >
-              {messages.map((msg) => <Bubble text={msg.text} alignLeft={!msg.is_user}/>)}
-              <BounceSpiner/>
+              {messages.map((msg, index) => {
+                if (index === messages.length - 1 && isBotTyping && !msg.is_user) {
+                  return <BounceSpiner/>;
+                }
+                return <Bubble key={index} text={msg.text} alignLeft={!msg.is_user}/>;
+              })}
             </div>
             {_.get(currentScene, 'type') === 'CHOICE' && _.get(currentScene, 'response', []).length === 0 ?
               <OptionModal
