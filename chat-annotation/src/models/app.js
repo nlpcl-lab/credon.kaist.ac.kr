@@ -8,6 +8,9 @@ import scenarioSample from './scenario_sample.json';
 export default {
   namespace: 'app',
   state: {
+    title: '',
+    body: '',
+    highlight_text: '',
     progress: 0,
     scenario: scenarioSample,
   },
