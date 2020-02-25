@@ -1,0 +1,27 @@
+@import '../../color';
+@import '../../animation';
+
+.optionModal {
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  display: flex;
+  padding: 0 10px;
+  justify-content: center;
+
+  > .option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid @oc-gray-3;
+    height: 40px;
+    margin: 4px;
+    background-color: @oc-gray-1;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: @oc-gray-3;
+    }
+  }
+}

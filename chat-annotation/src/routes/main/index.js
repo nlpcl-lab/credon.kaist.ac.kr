@@ -1,11 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
+import moment from 'moment';
 import { connect } from 'dva';
 import { Table, Button, Icon, Empty } from 'antd';
 
 
 import styles from './index.less';
-import { Bubble, JsonEditor, Board } from '../../components';
+import { Bubble, JsonEditor, Board, OptionModal, BounceSpiner } from '../../components';
 
 
 class Main extends React.Component {
@@ -24,11 +25,17 @@ class Main extends React.Component {
       console.log('tick!');
       const { app, dispatch } = this.props;
       const { progress, scenario } = app;
-      const { input, isTyping } = this.state;
+      const { isTyping } = this.state;
 
       if (isTyping) return;
+      if (['TYPING', 'CHOICE'].indexOf(scenario[progress].type) >= 0 && !scenario[progress].response) {
+        return;
+      }
 
       if (progress + 1 < scenario.length) {
+        scenario[progress + 1].displayed_at = moment()
+          .toISOString();
+
         dispatch({
           type: 'app/updateState',
           payload: {
@@ -36,7 +43,7 @@ class Main extends React.Component {
           },
         });
       }
-    }, 3000);
+    }, 4000);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -75,10 +82,10 @@ class Main extends React.Component {
         text: scenario[i].message,
       });
       if (_.isArray(scenario[i].response)) {
-        scenario[i].response.forEach((text) => {
+        scenario[i].response.forEach((item) => {
           messages.push({
             is_user: true,
-            text,
+            text: item.text,
           });
         });
       }
@@ -101,16 +108,49 @@ class Main extends React.Component {
     });
   };
 
-  addMessage = () => {
+  addMessage = (value) => {
+    const { app, dispatch } = this.props;
+    const { progress, scenario } = app;
 
+    if (!value) return;
+
+    const newScenario = _.cloneDeep(scenario);
+    if (!_.isArray(scenario[progress].response)) newScenario[progress].response = [];
+    newScenario[progress].response.push({
+      updated_at: moment()
+        .toISOString(),
+      text: value,
+    });
+    this.setState({
+      input: '',
+      isTyping: false,
+    });
+    dispatch({
+      type: 'app/updateState',
+      payload: {
+        scenario: newScenario,
+      },
+    });
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+      this.timeoutId = null;
+    }
   };
+
 
   render() {
     const { app, dispatch } = this.props;
-    const { title, body, highlightText } = app;
     const { input } = this.state;
+    const {
+      title,
+      body,
+      highlightText,
+      scenario,
+      progress
+    } = app;
 
     const messages = this.buildMessages();
+    const currentScene = scenario[progress];
 
     return (
       <div className={styles.main}>
@@ -136,26 +176,32 @@ class Main extends React.Component {
               className={styles.bubbles}
             >
               {messages.map((msg) => <Bubble text={msg.text} alignLeft={!msg.is_user}/>)}
+              <BounceSpiner/>
             </div>
-            <div className={styles.inputBox}>
-              <input
-                value={input}
-                onChange={(e) => this.updateInput(e.target.value)}
-                className={styles.input}
-                placeholder="input"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    this.addMessage();
-                  }
-                }}
-              />
-              <div
-                className={styles.sendButton}
-                onClick={() => this.addMessage()}
-              >
-                Send
-              </div>
-            </div>
+            {_.get(currentScene, 'type') === 'CHOICE' && _.get(currentScene, 'response', []).length === 0 ?
+              <OptionModal
+                options={_.get(currentScene, 'options')}
+                onSelectValue={(value) => this.addMessage(value)}
+              /> :
+              <div className={styles.inputBox}>
+                <input
+                  value={input}
+                  onChange={(e) => this.updateInput(e.target.value)}
+                  className={styles.input}
+                  placeholder="Type a message..."
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      this.addMessage(input);
+                    }
+                  }}
+                />
+                <div
+                  className={styles.sendButton}
+                  onClick={() => this.addMessage(input)}
+                >
+                  Send
+                </div>
+              </div>}
           </div>
         </div>
         <div className={styles.row2}>

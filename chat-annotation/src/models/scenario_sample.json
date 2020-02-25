@@ -1,7 +1,13 @@
 [
   {
-    "type": "INFO",
-    "message": "Hi, I am CREDON, I will ask you some questions about argumentation strength."
+    "type": "CHOICE",
+    "message": "Hi, I am CREDON, I will ask you some questions about argumentation strength.",
+    "options": [
+      {
+        "label": "Start",
+        "description": ""
+      }
+    ]
   },
   {
     "type": "TYPING",

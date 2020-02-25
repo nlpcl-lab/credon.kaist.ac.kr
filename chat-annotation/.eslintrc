@@ -13,12 +13,15 @@
     "react/jsx-first-prop-new-line": 0,
     "react/prefer-stateless-function": 0,
     "react/jsx-tag-spacing": 0,
+    "react/no-array-index-key": 0,
     "import/no-named-default": 0,
     "jsx-a11y/label-has-for": 0,
     "consistent-return": 0,
     "comma-dangle": 0,
     "spaced-comment": 0,
     "global-require": 0,
+    "arrow-body-style": 0,
+    "operator-linebreak": 0,
     "react/jsx-filename-extension": [
       1,
       {
