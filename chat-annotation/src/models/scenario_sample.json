@@ -5,8 +5,7 @@
   },
   {
     "type": "TYPING",
-    "message": "Please enter the ‘CHAT-NUMBER’ that you were given. Thank you.",
-    "response": "${chatting-number}"
+    "message": "Please enter the ‘CHAT-NUMBER’ that you were given. Thank you."
   },
   {
     "type": "INFO",
@@ -29,8 +28,7 @@
         "label": "${Q1_A2}",
         "description": ""
       }
-    ],
-    "response": "${Q1_A2}"
+    ]
   },
   {
     "type": "INFO",
@@ -49,8 +47,7 @@
         "label": "Continue",
         "description": ""
       }
-    ],
-    "response": "Continue"
+    ]
   },
   {
     "type": "CHOICE",
@@ -67,8 +64,7 @@
         "label": "${Q1_A2}",
         "description": ""
       }
-    ],
-    "response": "${Q1_A1}"
+    ]
   },
   {
     "type": "INFO",
@@ -76,8 +72,7 @@
   },
   {
     "type": "TYPING",
-    "message": "And, again, please try to avoid general statements.",
-    "response": "${justification_Q1}"
+    "message": "And, again, please try to avoid general statements."
   },
   {
     "type": "INFO",

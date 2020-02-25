@@ -36,13 +36,14 @@ class Main extends React.Component {
           },
         });
       }
-    }, 4000);
+    }, 3000);
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { app } = this.props;
     const { scenario, progress } = app;
-    if (progress !== prevProps.app.progress) {
+    if (progress !== prevProps.app.progress
+      || scenario !== prevProps.app.scenario) {
       this.bubbles.scrollTop = this.bubbles.scrollHeight;
     }
   }
@@ -68,19 +69,40 @@ class Main extends React.Component {
     const messages = [];
     const { progress, scenario } = app;
 
-    for (let i = 0; i <= progress && i < scenario.length; i++) {
+    for (let i = 0; i <= progress && i < scenario.length; i += 1) {
       messages.push({
         is_user: false,
         text: scenario[i].message,
       });
-      if (scenario[i].response) {
-        messages.push({
-          is_user: true,
-          text: scenario[i].response,
+      if (_.isArray(scenario[i].response)) {
+        scenario[i].response.forEach((text) => {
+          messages.push({
+            is_user: true,
+            text,
+          });
         });
       }
     }
     return messages;
+  };
+
+  onClickRollback = () => {
+    const { app, dispatch } = this.props;
+    const { progress, scenario } = app;
+
+    const newScenario = _.cloneDeep(scenario);
+    newScenario[progress].response = [];
+    dispatch({
+      type: 'app/updateState',
+      payload: {
+        progress: progress >= 1 ? progress - 1 : progress,
+        scenario: newScenario,
+      },
+    });
+  };
+
+  addMessage = () => {
+
   };
 
   render() {
