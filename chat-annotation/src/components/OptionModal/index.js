@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Empty } from 'antd';
+import { Popover, Icon } from 'antd';
 
 import styles from './index.less';
 
@@ -19,6 +19,13 @@ class OptionModal extends React.Component {
               onClick={() => onSelectValue(option.label)}
             >
               {option.label}
+              {option.description ?
+                <Popover content={option.description}>
+                  <Icon
+                    className={styles.icon}
+                    type="question-circle"
+                  />
+                </Popover> : null}
             </div>
           );
         })}

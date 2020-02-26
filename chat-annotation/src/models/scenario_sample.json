@@ -4,8 +4,7 @@
     "message": "Hi, I am CREDON, I will ask you some questions about argumentation strength.",
     "options": [
       {
-        "label": "Start",
-        "description": ""
+        "label": "Start"
       }
     ]
   },
@@ -28,11 +27,11 @@
     "options": [
       {
         "label": "${Q1_A1}",
-        "description": ""
+        "description": "What Do you mean by ${Q10_A1}?"
       },
       {
         "label": "${Q1_A2}",
-        "description": ""
+        "description": "What Do you mean by ${Q10_A2}?"
       }
     ]
   },

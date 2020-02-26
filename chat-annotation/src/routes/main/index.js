@@ -2,11 +2,11 @@ import React from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Table, Button, Icon, Empty } from 'antd';
+import { Button } from 'antd';
 
 
 import styles from './index.less';
-import { Bubble, JsonEditor, Board, OptionModal, BounceSpiner } from '../../components';
+import { Bubble, JsonEditor, Board, OptionModal } from '../../components';
 
 
 class Main extends React.Component {
@@ -151,12 +151,9 @@ class Main extends React.Component {
   };
 
   renderInput = () => {
-    const { app, dispatch } = this.props;
+    const { app } = this.props;
     const { input, isBotTyping } = this.state;
     const {
-      title,
-      body,
-      highlight_text,
       scenario,
       progress
     } = app;
@@ -164,8 +161,9 @@ class Main extends React.Component {
     const currentScene = scenario[progress];
     if (_.get(currentScene, 'type') === 'CHOICE' && _.get(currentScene, 'response', []).length === 0) {
       return !isBotTyping ?
-        <OptionModal options={_.get(currentScene, 'options')}
-                     onSelectValue={(value) => this.addMessage(value)}
+        <OptionModal
+          options={_.get(currentScene, 'options')}
+          onSelectValue={(value) => this.addMessage(value)}
         /> : null;
     }
 
