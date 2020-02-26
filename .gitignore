@@ -2,11 +2,10 @@ venv/
 
 .idea/
 
-chat-annotation/node_modules/
-chat-annotation/dist/
-
-chat-annotation/npm-debug.log*
-chat-annotation/yarn-debug.log*
-chat-annotation/yarn-errocdr.log*
+chat-annotation/frontend/node_modules/
+chat-annotation/frontend/dist/
+chat-annotation/frontend/npm-debug.log*
+chat-annotation/frontend/yarn-debug.log*
+chat-annotation/frontend/yarn-errocdr.log*
 
 .vscode/*
