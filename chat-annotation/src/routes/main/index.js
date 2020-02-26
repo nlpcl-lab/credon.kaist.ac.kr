@@ -40,7 +40,7 @@ class Main extends React.Component {
         this.botTypingTimeoutId = setTimeout(() => {
           this.setState({ isBotTyping: false, });
           this.botTypingTimeoutId = null;
-        }, 3000);
+        }, 2000);
 
         scenario[progress + 1].displayed_at = moment()
           .toISOString();
@@ -57,7 +57,7 @@ class Main extends React.Component {
           payload,
         });
       }
-    }, 4000);
+    }, 3000);
   }
 
   componentDidUpdate(prevProps, prevState) {
