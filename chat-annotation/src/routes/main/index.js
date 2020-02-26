@@ -6,7 +6,7 @@ import { Button } from 'antd';
 
 
 import styles from './index.less';
-import { Bubble, JsonEditor, Board, OptionModal } from '../../components';
+import { Bubble, JsonEditor, Board, OptionModal, ExportModal } from '../../components';
 
 
 class Main extends React.Component {
@@ -17,6 +17,7 @@ class Main extends React.Component {
       input: '',
       isUserTyping: false,
       isBotTyping: false,
+      exportModalVisible: false,
     };
     this.userTypingTimeoutId = null;
     this.botTypingTimeoutId = null;
@@ -127,8 +128,6 @@ class Main extends React.Component {
 
     if (!value) return;
 
-    console.log('addMessage value:', value);
-
     const newScenario = _.cloneDeep(scenario);
     if (!_.isArray(scenario[progress].response)) newScenario[progress].response = [];
     newScenario[progress].response.push({
@@ -140,6 +139,9 @@ class Main extends React.Component {
       input: '',
       isUserTyping: false,
     });
+    if (value.toLowerCase() === 'export') {
+      this.setState({ exportModalVisible: true });
+    }
     dispatch({
       type: 'app/updateState',
       payload: {
@@ -193,7 +195,7 @@ class Main extends React.Component {
 
   render() {
     const { app, dispatch } = this.props;
-    const { input, isBotTyping } = this.state;
+    const { exportModalVisible, isBotTyping } = this.state;
     const {
       title,
       body,
@@ -206,6 +208,11 @@ class Main extends React.Component {
 
     return (
       <div className={styles.main}>
+        <ExportModal
+          visible={exportModalVisible}
+          onChangeVisible={(visible) => this.setState({ exportModalVisible: visible })}
+          messages={messages}
+        />
         <div className={styles.row1}>
           <div className={styles.board}>
             <Board

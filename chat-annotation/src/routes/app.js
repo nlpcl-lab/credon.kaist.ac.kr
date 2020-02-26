@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import PropTypes from 'prop-types';
 import { ConfigProvider } from 'antd';
-import koKR from 'antd/lib/locale-provider/ko_KR';
+// import koKR from 'antd/lib/locale-provider/ko_KR';
 import 'moment/locale/ko';
 
 import styles from './app.less';
@@ -26,7 +26,7 @@ class App extends React.Component {
     const { children, app, location } = this.props;
 
     return (
-      <ConfigProvider locale={koKR}>
+      <ConfigProvider>
         {children}
       </ConfigProvider>
     );
