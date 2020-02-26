@@ -127,6 +127,8 @@ class Main extends React.Component {
 
     if (!value) return;
 
+    console.log('addMessage value:', value);
+
     const newScenario = _.cloneDeep(scenario);
     if (!_.isArray(scenario[progress].response)) newScenario[progress].response = [];
     newScenario[progress].response.push({
@@ -173,7 +175,7 @@ class Main extends React.Component {
         onChange={(e) => this.updateInput(e.target.value)}
         className={styles.input}
         placeholder="Type a message..."
-        onKeyDown={(e) => {
+        onKeyUp={(e) => {
           if (e.key === 'Enter') {
             this.addMessage(input);
           }
