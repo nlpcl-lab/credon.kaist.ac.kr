@@ -6,7 +6,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, '/dist'),
     filename: '[name].js',
-    chunkFilename: '[id].[hash].js'
+    publicPath: '/static/',
+    chunkFilename: '[id].[hash].js',
   },
   resolve: {
     extensions: ['.js', '.less', '.css', '.svg']
