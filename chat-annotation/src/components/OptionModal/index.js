@@ -20,8 +20,11 @@ class OptionModal extends React.Component {
             >
               {option.label}
               {option.description ?
-                <Popover content={option.description}>
+                <Popover
+                  content={option.description}
+                >
                   <Icon
+                    onClick={(e) => e.stopPropagation()}
                     className={styles.icon}
                     type="question-circle"
                   />
