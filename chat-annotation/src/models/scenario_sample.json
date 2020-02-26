@@ -1,10 +1,11 @@
 [
   {
     "type": "CHOICE",
-    "message": "Hi, I am CREDON, I will ask you some questions about argumentation strength.",
+    "message": "Hi, I will ask you some questions about argumentation strength.",
     "options": [
       {
-        "label": "Start"
+        "label": "Start",
+        "description": "A sentence is 'Mostly True' if the sentential information does match with reality except for few exceptional circumstances."
       }
     ]
   },
@@ -18,58 +19,299 @@
   },
   {
     "type": "CHOICE",
-    "message": "(Q1/11) Do you think the statement at the left is true?",
+    "message": "(Q1/11) Do you think the statement at the left is TRUE?",
     "update_document": {
       "title": "",
-      "body": "${sentence_1}",
+      "body": "States ought not possess nuclear weapons because the potential for a safer world.",
       "highlight_text": ""
     },
     "options": [
       {
-        "label": "${Q1_A1}",
-        "description": "What Do you mean by ${Q10_A1}?"
+        "label": "True",
+        "description": "A sentence is 'TRUE' if the sentential information matches with reality."
       },
       {
-        "label": "${Q1_A2}",
-        "description": "What Do you mean by ${Q10_A2}?"
+        "label": "Mostly True",
+        "description": "A sentence is 'Mostly True' if the sentential information does match with reality except for few exceptional circumstances."
+      },
+      {
+        "label": "N/A",
+        "description": "Not applicable. It is not possible or appropriate to judge whether or not the sentential information matches with reality"
+      },
+      {
+        "label": "Mostly False",
+        "description": "A sentence is 'Mostly False' if the sentential information does not match with reality except for few exceptional circumstances."
+      },
+      {
+        "label": "False",
+        "description": "A sentence is 'FALSE' if the sentential information does not match with reality"
       }
     ]
   },
   {
     "type": "INFO",
-    "message": "Thank you! Now as the first question."
+    "message": "Thank you! Now as the second question."
+  },
+  {
+    "type": "INFO",
+    "message": "(Q2/11) Please justify your judgment in a sentence. Again, the more specific the better :)"
+  },
+  {
+    "type": "TYPING",
+    "message": "And, again, please try to avoid general statements."
+  },
+  {
+    "type": "INFO",
+    "message": "Thank you so much!"
+  },
+  {
+    "type": "CHOICE",
+    "message": "(Q3/11) Do you think the statement at the left is BIASED?",
+    "options": [
+      {
+        "label": "Highly Biased",
+        "description": ""
+      },
+      {
+        "label": "Biased",
+        "description": ""
+      },
+      {
+        "label": "Slightly Biased",
+        "description": ""
+      },
+      {
+        "label": "Not Biased",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "type": "CHOICE",
+    "message": "(Q4/11) Do you think the statement at the left is CONTROVERSIAL?",
+    "options": [
+      {
+        "label": "Highly Controversial",
+        "description": ""
+      },
+      {
+        "label": "Controversial",
+        "description": ""
+      },
+      {
+        "label": "Slightly Controversial",
+        "description": ""
+      },
+      {
+        "label": "Not Controversial",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "type": "CHOICE",
+    "message": "(Q5/11) Do you think the statement at the left is VERIFIABLE?",
+    "options": [
+      {
+        "label": "Common-Sense",
+        "description": "It is a common-sense knowledge"
+      },
+      {
+        "label": "Easily Verifiable",
+        "description": "It will be very easy to find some evidence or witness to verify the information"
+      },
+      {
+        "label": "Verifiable",
+        "description": "It is feasible to find some evidence or witness to verify the information."
+      },
+      {
+        "label": "Only Theoretically",
+        "description": "It is theoretically possible to verify the information, but it would be very difficult."
+      },
+      {
+        "label": "Not Verifiable",
+        "description": "It is not possible to find some evidence or witness to verify the information."
+      },
+      {
+        "label": "N/A",
+        "description": "Not applicable. It is not possible or appropriate to judge whether or not it is possible to find some evidence or witness to verify the information."
+      }
+    ]
+  },
+  {
+    "type": "INFO",
+    "message": "Q6-9 will be about the document left, and Q10-11 will be about a sentence.",
+    "update_document": {
+      "title": "",
+      "body": "",
+      "highlight_text": ""
+    }
   },
   {
     "type": "CHOICE",
     "message": "Please read carefully the document on the left! When you are done reading, please click ‘continue’!",
     "update_document": {
-      "title": "Should students be taught to compete or to cooperate?",
-      "body": "It is always said that competition can effectively promote the development of economy. In order to survive in the competition, companies continue to improve their products and service, and as a result, the whole society prospers. However, when we discuss the issue of competition or cooperation, what we are concerned about is not the whole society, but the development of an individual's whole life. First of all, through cooperation, children can learn about interpersonal skills which are significant in the future life of all students. What we acquired from team work is not only how to achieve the same goal with others but more importantly, how to get along with others. During the process of cooperation, children can learn about how to listen to opinions of others, how to communicate with others, how to think comprehensively, and even how to compromise with other team members when conflicts occurred. All of these skills help them to get on well with other people and will benefit them for the whole life.",
+      "title": "Alternative forms of transport to alleviate traffic congestion",
+      "body": "Recently, a great deal of attention has been paid to means of transportation. Some state that automobile is the most convenient transportation, while others assert that alternative forms of transport should be considered in view of environmental pollution. In my opinion, I strongly agree that alternative means of transportation and international laws in controlling automobiles should be introduced. In this essay, several reasons will be described carefully in the following passages.\nFirstly, an increase in the number of automobiles brings about environmental pollution. Since automobile exhaust and carbon dioxides emission have bad impacts on the air, the air gets to be polluted and it causes respiratory disease of the local inhabitants. Therefore, it is crucial to alter automobiles to the other means of transportation and to legislate to control automobiles.\nSecondly, an increase in the number of automobiles causes terrible traffic congestion. Once we get into the traffic jam, it forces us to waste our time for a while. What is worse, traffic congestion irritates drivers and as a result, it leads to an increase of traffic accidents. Thus, the methods to reduce the number of automobiles and to control car ownership and use should be immediately planned and implemented.\nIn order to solve these problems, alternative forms of transportation and international laws to control automobiles ownership and use can work effectively. With regard to the former, alternative forms which emit less carbon dioxides and gasses than automobiles are ideal. For example, rental bicycle system has been introduced in several European countries. This system is that at the corner of each district, the rental bicycles are placed and the people can ride it to the other districts with a small fee. Since bicycle expels neither carbon dioxides nor harmful gasses, it is a better form to protect environment than automobile. As for the latter point, the introduction of international laws can be also effective. For instance, there are some regulations to limit the use of automobiles by time and to allow the people possess one car only. Thus, these attempts to reduce automobiles can ease traffic congestion and environmental pollution.\nIn summary, even though some people claim the convenience of automobile, I would state that alternative forms of transport and international laws on controlling automobiles are necessary due to the environmental protection and the alleviation of traffic congestion.",
       "highlight_text": ""
     },
     "options": [
       {
-        "label": "Continue",
+        "label": "continue",
         "description": ""
       }
     ]
   },
   {
     "type": "CHOICE",
-    "message": "(Q6/11) Do you think the highlighted sentence is well-presented, eloquently?",
-    "update_document": {
-      "highlight_text": "However, when we discuss the issue of competition or cooperation, what we are concerned about is not the whole society, but the development of an individual's whole life."
-    },
+    "message": "(Q6/11) Do you think the HIGHLIGHTED sentence is well-presented, ELOQUENTLY?",
     "options": [
       {
-        "label": "${Q1_A1}",
+        "label": "Mastery of English",
+        "description": "It demonstrates mastery of English. There are no grammatical errors that distract from the meaning of the sentence. Exhibits a well thought out, flowing sentence structure that is easy to read and conveys the idea exceptionally well."
+      },
+      {
+        "label": "Fluency in English",
+        "description": "It demonstrates fluency in English. If there are any grammatical or syntactical errors, their affect on the meaning is negligible. Word choice suggests a broad vocabulary."
+      },
+      {
+        "label": "Competence in English",
+        "description": "It demonstrates competence in English. There might be a few errors that are noticeable but forgivable, such as an incorrect verb tense or unnecessary pluralization. Demonstrates a typical vocabulary and a simple sentence structure."
+      },
+      {
+        "label": "Poor English",
+        "description": "It demonstrates poor understanding of sentence composition and/or poor vocabulary. The choice of words or grammatical errors force the reader to reread the sentence before moving on."
+      },
+      {
+        "label": "Minimal Eloquence",
+        "description": "It demonstrates minimal eloquence. The sentence contains errors so severe that the sentence must be carefully analyzed to deduce its meaning."
+      }
+    ],
+    "update_document": {
+      "highlight_text": "alternative means of transportation and international laws in controlling automobiles should be introduced"
+    }
+  },
+  {
+    "type": "CHOICE",
+    "message": "(Q7/11) Do you think the author is appealing to LOGICAL REASONING via the HIGHLIGHTED sentence?",
+    "options": [
+      {
+        "label": "YES",
         "description": ""
       },
       {
-        "label": "${Q1_A2}",
+        "label": "NO",
         "description": ""
       }
+    ],
+    "update_document": {
+      "highlight_text": "alternative means of transportation and international laws in controlling automobiles should be introduced"
+    }
+  },
+  {
+    "type": "CHOICE",
+    "message": "(Q8/11) Do you think the HIGHLIGHTED sentence is SPECIFIC?",
+    "options": [
+      {
+        "label": "Elaborate, Very Specific",
+        "description": "It is an elaborate, very specific statement. The statement contains numerical data, or a historical example from the real world. There is (1) both a sufficient qualifier indicating the extent to which the statement holds true and an explanation of why the statement is true, or (2) at least one real world example, or (3) a sufficient description of a hypothetical situation that would evoke a mental image of the situation in the minds of most readers."
+      },
+      {
+        "label": "A More Specific",
+        "description": "It is a more specific statement. It is characterized by either an explanation of why the statement is true, or a qualifier indicating when/to what extent the statement is true. Alternatively, it may list examples of items that do not qualify as historical events."
+      },
+      {
+        "label": "Sufficiently Specific",
+        "description": "It is a sufficiently specific statement. It simply states a relationship or a fact with little ambiguity."
+      },
+      {
+        "label": "Broad",
+        "description": "It is a broad statement. A statement with hedge words and without other redeeming factors such as explicit examples, or elaborate reasoning. Additionally, there are few adjectives or adverbs."
+      },
+      {
+        "label": "Extremely Broad",
+        "description": "It is an extremely broad statement. There is no underlying explanation, qualifiers, or real-world examples."
+      }
+    ],
+    "update_document": {
+      "highlight_text": "an increase in the number of automobiles brings about environmental pollution"
+    }
+  },
+  {
+    "type": "CHOICE",
+    "message": "(Q9/11) Do you think the HIGHLIGHTED sentence is PERSUASIVE?",
+    "options": [
+      {
+        "label": "Very Strong, Clear",
+        "description": "It is a very strong, clear argument. It would persuade most readers and is devoid of errors that might detract from its strength or make it difficult to understand."
+      },
+      {
+        "label": "Strong, Pretty Clear",
+        "description": "It is a strong, pretty clear argument. It would persuade most readers, but may contain some minor errors that detract from its strength or understandability."
+      },
+      {
+        "label": "Decent, Fairly Clear",
+        "description": "It is a decent, fairly clear argument. It could persuade some readers, but contains errors that detract from its strength or understandability."
+      },
+      {
+        "label": "Poor, Understandable",
+        "description": "It is a poor, understandable argument. It might persuade readers who are already inclined to agree with it, but contains severe errors that detract from its strength or understandability."
+      },
+      {
+        "label": "Unclear",
+        "description": "It is unclear what the author is trying to argue. It is unclear what the author is trying to argue or the argument is poor and just so riddled with errors as to be completely unpersuasive."
+      },
+      {
+        "label": "Not Making Any Argument",
+        "description": "The author does not appear to make any argument. The author does not appear to make any argument (e.g. he may just describe some incident without explaining why it is important). It could not persuade any readers because there is nothing to be persuaded of. It may or may not contain detectable errors, but errors are moot since there is not an argument for them to interfere with."
+      }
+    ],
+    "update_document": {
+      "highlight_text": "alternative means of transportation and international laws in controlling automobiles should be introduced"
+    }
+  },
+  {
+    "type": "INFO",
+    "message": "Thank you! Now it is almost done. Please be a little more patient!"
+  },
+  {
+    "type": "INFO",
+    "message": "This question is the same as the first question. But the target sentence is different."
+  },
+  {
+    "type": "CHOICE",
+    "message": "(Q10/11) Do you think the statement at the left is TRUE?",
+    "update_document": {
+      "title": "",
+      "body": "Russia needs strong leadership because a strong leader has more benefits than harms",
+      "highlight_text": ""
+    },
+    "options": [
+      {
+        "label": "True",
+        "description": "A sentence is 'TRUE' if the sentential information matches with reality."
+      },
+      {
+        "label": "Mostly True",
+        "description": "A sentence is 'Mostly True' if the sentential information does match with reality except for few exceptional circumstances."
+      },
+      {
+        "label": "N/A",
+        "description": "Not applicable. It is not possible or appropriate to judge whether or not the sentential information matches with reality"
+      },
+      {
+        "label": "Mostly False",
+        "description": "A sentence is 'Mostly False' if the sentential information does not match with reality except for few exceptional circumstances."
+      },
+      {
+        "label": "False",
+        "description": "A sentence is 'FALSE' if the sentential information does not match with reality"
+      }
     ]
+  },
+  {
+    "type": "INFO",
+    "message": "Thank you! Now as the final question."
   },
   {
     "type": "INFO",
@@ -81,10 +323,24 @@
   },
   {
     "type": "INFO",
-    "message": "Thank you so much for all your efforts!"
+    "message": "Thank you so much for all the efforts!"
+  },
+  {
+    "type": "CHOICE",
+    "message": "please click the ‘export’ button",
+    "options": [
+      {
+        "label": "export",
+        "description": ""
+      }
+    ]
   },
   {
     "type": "INFO",
-    "message": "Hope to see you againJ"
+    "message": "Please paste the chatting log into the submit box in the AMT platform then submit."
+  },
+  {
+    "type": "INFO",
+    "message": "Hope to see you again :)"
   }
 ]

@@ -29,7 +29,7 @@ class Main extends React.Component {
       const { progress, scenario } = app;
       const { isUserTyping } = this.state;
 
-      if (isUserTyping) return;
+      // if (isUserTyping) return;
       if (['TYPING', 'CHOICE'].indexOf(scenario[progress].type) >= 0 && _.get(scenario, `${progress}.response`, []).length === 0) {
         return;
       }

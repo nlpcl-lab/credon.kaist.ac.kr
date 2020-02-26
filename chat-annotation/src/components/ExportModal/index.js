@@ -19,7 +19,6 @@ class ExportModal extends React.Component {
     messages.forEach((message) => {
       text.push(`${message.is_user ? 'you' : 'bot'}:"${message.text}"`);
     });
-    console.log();
     return (
       <Modal
         title="Export Chat"

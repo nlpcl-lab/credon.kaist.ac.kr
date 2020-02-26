@@ -8,20 +8,25 @@ import styles from './index.less';
 class OptionModal extends React.Component {
   render() {
     const { options, onSelectValue } = this.props;
+
+
     return (
-      <div className={styles.optionModal}>
+      <div
+        className={styles.optionModal}
+        style={{ flexWrap: options.length >= 5 ? 'wrap' : 'nowrap' }}
+      >
         {options.map((option, index) => {
           return (
             <div
               key={index}
               className={styles.option}
-              style={{ width: '100%' }}
+              style={{ width: options.length >= 5 ? '120px' : '100%' }}
               onClick={() => onSelectValue(option.label)}
             >
               {option.label}
               {option.description ?
                 <Popover
-                  content={option.description}
+                  content={<div style={{ maxWidth: '400px' }}>{option.description}</div>}
                 >
                   <Icon
                     onClick={(e) => e.stopPropagation()}
