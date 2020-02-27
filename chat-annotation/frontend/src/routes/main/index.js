@@ -7,6 +7,7 @@ import { Button, Input } from 'antd';
 
 import styles from './index.less';
 import { Bubble, JsonEditor, Board, OptionModal, ExportModal } from '../../components';
+import Config from '../../config';
 
 const { TextArea } = Input;
 
@@ -32,7 +33,7 @@ class Main extends React.Component {
       const { isUserTyping } = this.state;
 
       // if (isUserTyping) return;
-      if (['TYPING', 'CHOICE'].indexOf(scenario[progress].type) >= 0 && _.get(scenario, `${progress}.response`, []).length === 0) {
+      if ([Config.constants.types.TYPING, Config.constants.types.CHOICE].indexOf(scenario[progress].type) >= 0 && _.get(scenario, `${progress}.response`, []).length === 0) {
         return;
       }
 
@@ -102,7 +103,7 @@ class Main extends React.Component {
         scenario[i].response.forEach((item, index) => {
           messages.push({
             is_user: true,
-            edit_path: scenario[i].type === 'TYPING' ? `${i}.response.${index}` : null,
+            edit_path: scenario[i].type === Config.constants.types.TYPING ? `${i}.response.${index}` : null,
             text: item.text,
           });
         });
@@ -172,7 +173,7 @@ class Main extends React.Component {
     } = app;
 
     const currentScene = scenario[progress];
-    if (_.get(currentScene, 'type') === 'CHOICE' && _.get(currentScene, 'response', []).length === 0) {
+    if (_.get(currentScene, 'type') === Config.constants.types.CHOICE && _.get(currentScene, 'response', []).length === 0) {
       return !isBotTyping ?
         <OptionModal
           options={_.get(currentScene, 'options')}
