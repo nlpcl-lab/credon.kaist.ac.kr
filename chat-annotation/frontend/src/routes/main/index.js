@@ -102,7 +102,7 @@ class Main extends React.Component {
         scenario[i].response.forEach((item, index) => {
           messages.push({
             is_user: true,
-            edit_path: `${i}.response.${index}`,
+            edit_path: scenario[i].type === 'TYPING' ? `${i}.response.${index}` : null,
             text: item.text,
           });
         });
@@ -250,6 +250,7 @@ class Main extends React.Component {
                     key={index}
                     text={msg.text}
                     alignLeft={!msg.is_user}
+                    editable={!!msg.edit_path}
                   />
                 );
               })}
