@@ -11,12 +11,14 @@
   justify-content: center;
 
   > .option {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid @oc-gray-3;
     height: 40px;
     margin: 4px;
+    padding: 0 20px;
     text-align: center;
     background-color: @oc-gray-1;
     border-radius: 4px;
@@ -28,9 +30,11 @@
     }
 
     .icon {
-      margin-left: 5px;
-      font-size: 18px;
-      color: @oc-gray-6;
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      font-size: 16px;
+      color: @oc-gray-5;
     }
   }
 }

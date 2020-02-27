@@ -1,6 +1,35 @@
 [
   {
     "type": "CHOICE",
+    "message": "(Q8/11) Do you think the HIGHLIGHTED sentence is SPECIFIC?",
+    "options": [
+      {
+        "label": "Elaborate, Very Specific",
+        "description": "It is an elaborate, very specific statement. The statement contains numerical data, or a historical example from the real world. There is (1) both a sufficient qualifier indicating the extent to which the statement holds true and an explanation of why the statement is true, or (2) at least one real world example, or (3) a sufficient description of a hypothetical situation that would evoke a mental image of the situation in the minds of most readers."
+      },
+      {
+        "label": "A More Specific",
+        "description": "It is a more specific statement. It is characterized by either an explanation of why the statement is true, or a qualifier indicating when/to what extent the statement is true. Alternatively, it may list examples of items that do not qualify as historical events."
+      },
+      {
+        "label": "Sufficiently Specific",
+        "description": "It is a sufficiently specific statement. It simply states a relationship or a fact with little ambiguity."
+      },
+      {
+        "label": "Broad",
+        "description": "It is a broad statement. A statement with hedge words and without other redeeming factors such as explicit examples, or elaborate reasoning. Additionally, there are few adjectives or adverbs."
+      },
+      {
+        "label": "Extremely Broad",
+        "description": "It is an extremely broad statement. There is no underlying explanation, qualifiers, or real-world examples."
+      }
+    ],
+    "update_document": {
+      "highlight_text": "an increase in the number of automobiles brings about environmental pollution"
+    }
+  },
+  {
+    "type": "CHOICE",
     "message": "Hi, I will ask you some questions about argumentation strength.",
     "options": [
       {

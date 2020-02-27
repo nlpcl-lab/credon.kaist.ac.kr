@@ -20,7 +20,7 @@ class OptionModal extends React.Component {
             <div
               key={index}
               className={styles.option}
-              style={{ width: options.length >= 5 ? '120px' : '100%' }}
+              style={{ width: options.length >= 5 ? '130px' : '100%' }}
               onClick={() => onSelectValue(option.label)}
             >
               {option.label}

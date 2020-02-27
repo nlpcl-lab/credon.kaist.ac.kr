@@ -3,8 +3,6 @@
 @board-width: 700px;
 @chat-width: 450px;
 @height: 600px;
-@input-height: 50px;
-@input-top-margin: 10px;
 
 .main {
   > .row1 {
@@ -35,34 +33,43 @@
       }
 
       > .bubbles {
-        height: @height - @input-height - @input-top-margin;
+        height: @height;
         overflow-y: auto;
         padding-top: 5px;
         padding-bottom: 80px;
       }
 
       > .inputBox {
-        margin-top: @input-top-margin;
-        padding: 0 10px 10px 10px;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        padding: 0 8px 10px 8px;
         display: flex;
-        height: @input-height;
 
         > .input {
           width: 80%;
-          padding: 3px 16px;
+          padding: 8px 16px;
           background-color: @oc-gray-1;
           outline: none;
           border: none;
           border-radius: 16px 0 0 16px;
+          &:focus {
+            box-shadow: none;
+          }
         }
 
         > .sendButton {
           width: 20%;
-          padding: 6px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           border-radius: 0 16px 16px 0;
           text-align: center;
           border: 1px solid @oc-gray-3;
           cursor: pointer;
+          &:hover {
+            border: 1px solid @oc-blue-4;
+          }
         }
       }
     }

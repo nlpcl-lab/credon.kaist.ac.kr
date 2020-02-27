@@ -127,20 +127,22 @@ class Main extends React.Component {
     const { app, dispatch } = this.props;
     const { progress, scenario } = app;
 
-    if (!value) return;
+    const trimmedValue = value.trim();
+    if (!trimmedValue) return;
+
 
     const newScenario = _.cloneDeep(scenario);
     if (!_.isArray(scenario[progress].response)) newScenario[progress].response = [];
     newScenario[progress].response.push({
       updated_at: moment()
         .toISOString(),
-      text: value,
+      text: trimmedValue,
     });
     this.setState({
       input: '',
       isUserTyping: false,
     });
-    if (value.toLowerCase() === 'export') {
+    if (trimmedValue.toLowerCase() === 'export') {
       this.setState({ exportModalVisible: true });
     }
     dispatch({
@@ -182,11 +184,6 @@ class Main extends React.Component {
         onChange={(e) => this.updateInput(e.target.value)}
         className={styles.input}
         placeholder="Type a message..."
-        // onKeyUp={(e) => {
-        //   if (e.key === 'Enter') {
-        //     this.addMessage(input);
-        //   }
-        // }}
       />
       <div
         className={styles.sendButton}
