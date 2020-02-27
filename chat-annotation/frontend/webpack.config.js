@@ -9,6 +9,13 @@ module.exports = {
     publicPath: '/static/',
     chunkFilename: '[id].[hash].js',
   },
+  devServer: {
+    contentBase: path.join(__dirname, '/dist'),
+    inline: true,
+    hot: true,
+    host: 'localhost',
+    port: 5500
+  },
   resolve: {
     extensions: ['.js', '.less', '.css', '.svg']
   },

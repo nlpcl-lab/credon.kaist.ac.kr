@@ -2,12 +2,13 @@ import React from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 
 
 import styles from './index.less';
 import { Bubble, JsonEditor, Board, OptionModal, ExportModal } from '../../components';
 
+const { TextArea } = Input;
 
 class Main extends React.Component {
   constructor(props) {
@@ -172,16 +173,20 @@ class Main extends React.Component {
     }
 
     return <div className={styles.inputBox}>
-      <input
+      <TextArea
         value={input}
+        autoSize={{
+          minRows: 1,
+          maxRows: 3
+        }}
         onChange={(e) => this.updateInput(e.target.value)}
         className={styles.input}
         placeholder="Type a message..."
-        onKeyUp={(e) => {
-          if (e.key === 'Enter') {
-            this.addMessage(input);
-          }
-        }}
+        // onKeyUp={(e) => {
+        //   if (e.key === 'Enter') {
+        //     this.addMessage(input);
+        //   }
+        // }}
       />
       <div
         className={styles.sendButton}
