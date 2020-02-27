@@ -18,6 +18,7 @@ class Main extends React.Component {
       input: '',
       isUserTyping: false,
       isBotTyping: false,
+      exportButtonVisible: false,
       exportModalVisible: false,
     };
     this.userTypingTimeoutId = null;
@@ -94,12 +95,14 @@ class Main extends React.Component {
     for (let i = 0; i <= progress && i < scenario.length; i += 1) {
       messages.push({
         is_user: false,
+        edit_path: null,
         text: scenario[i].message,
       });
       if (_.isArray(scenario[i].response)) {
-        scenario[i].response.forEach((item) => {
+        scenario[i].response.forEach((item, index) => {
           messages.push({
             is_user: true,
+            edit_path: `${i}.response.${index}`,
             text: item.text,
           });
         });
@@ -143,7 +146,10 @@ class Main extends React.Component {
       isUserTyping: false,
     });
     if (trimmedValue.toLowerCase() === 'export') {
-      this.setState({ exportModalVisible: true });
+      this.setState({
+        exportButtonVisible: true,
+        exportModalVisible: true,
+      });
     }
     dispatch({
       type: 'app/updateState',
@@ -197,7 +203,7 @@ class Main extends React.Component {
 
   render() {
     const { app, dispatch } = this.props;
-    const { exportModalVisible, isBotTyping } = this.state;
+    const { exportModalVisible, exportButtonVisible, isBotTyping } = this.state;
     const {
       title,
       body,
@@ -224,12 +230,13 @@ class Main extends React.Component {
             />
           </div>
           <div className={styles.chat}>
-            <Button
-              className={styles.rollback}
-              shape="circle"
-              icon="rollback"
-              onClick={() => this.onClickRollback()}
-            />
+            {exportButtonVisible ?
+              <Button
+                className={styles.rollback}
+                shape="circle"
+                icon="export"
+                onClick={() => this.onClickRollback()}
+              /> : null}
             <div
               ref={(el) => {
                 this.bubbles = el;

@@ -7,6 +7,10 @@ import styles from './index.less';
 
 
 class Bubble extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const { text, alignLeft, loading } = this.props;
 
