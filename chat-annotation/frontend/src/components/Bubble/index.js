@@ -16,15 +16,15 @@ class Bubble extends React.Component {
   }
 
   render() {
-    const { text, alignLeft, loading, editable } = this.props;
+    const {
+      text, alignLeft, loading, editable, openEditModal
+    } = this.props;
     const { isHovered } = this.state;
 
     const style = {
       backgroundColor: alignLeft ? '#e9ecef' : '#339af0',
       color: alignLeft ? '#000' : '#FFF',
     };
-    console.log('editable:', editable);
-
     return (
       <div
         className={styles.bubble}
@@ -40,7 +40,12 @@ class Bubble extends React.Component {
           >
             <span>{text}</span>
             {editable && isHovered ?
-              <span className={styles.editButton}>(<Icon type="edit"/>edit)</span> : null}
+              <span
+                className={styles.editButton}
+                onClick={() => openEditModal()}
+              >
+                (<Icon type="edit"/>edit)
+              </span> : null}
           </div>
         }
       </div>

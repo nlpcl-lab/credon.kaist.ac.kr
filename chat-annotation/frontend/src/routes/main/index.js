@@ -6,7 +6,7 @@ import { Button, Input } from 'antd';
 
 
 import styles from './index.less';
-import { Bubble, JsonEditor, Board, OptionModal, ExportModal } from '../../components';
+import { Bubble, JsonEditor, Board, OptionModal, ExportModal, EditModal } from '../../components';
 import Config from '../../config';
 
 const { TextArea } = Input;
@@ -15,12 +15,19 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
 
+    this.getInitialEditModal = () => ({
+      visible: false,
+      editPath: '0.response.0',
+      originalValue: '',
+    });
+
     this.state = {
       input: '',
       isUserTyping: false,
       isBotTyping: false,
       exportButtonVisible: false,
       exportModalVisible: false,
+      editModal: this.getInitialEditModal(),
     };
     this.userTypingTimeoutId = null;
     this.botTypingTimeoutId = null;
@@ -173,7 +180,8 @@ class Main extends React.Component {
     } = app;
 
     const currentScene = scenario[progress];
-    if (_.get(currentScene, 'type') === Config.constants.types.CHOICE && _.get(currentScene, 'response', []).length === 0) {
+    if (_.get(currentScene, 'type') === Config.constants.types.CHOICE
+      && _.get(currentScene, 'response', []).length === 0) {
       return !isBotTyping ?
         <OptionModal
           options={_.get(currentScene, 'options')}
@@ -204,7 +212,7 @@ class Main extends React.Component {
 
   render() {
     const { app, dispatch } = this.props;
-    const { exportModalVisible, exportButtonVisible, isBotTyping } = this.state;
+    const { exportModalVisible, exportButtonVisible, isBotTyping, editModal } = this.state;
     const {
       title,
       body,
@@ -213,14 +221,59 @@ class Main extends React.Component {
       progress
     } = app;
 
+
     const messages = this.buildMessages();
 
+    console.log('editModal: ', editModal);
     return (
       <div className={styles.main}>
         <ExportModal
           visible={exportModalVisible}
           onChangeVisible={(visible) => this.setState({ exportModalVisible: visible })}
           messages={messages}
+        />
+        <EditModal
+          visible={editModal.visible}
+          originalValue={editModal.originalValue}
+          updateValue={(value) => {
+            console.log('value:', value);
+            const newScenario = _.cloneDeep(scenario);
+            const ss = editModal.editPath.split('.');
+            if (ss.length !== 3) return;
+
+            const scenarioIndex = ss[0];
+            const responseIndex = ss[2];
+
+            const targetItem = _.get(newScenario, `${scenarioIndex}`);
+            if (!targetItem) return;
+            const targetRes = _.get(targetItem, `response.${responseIndex}`);
+            if (!targetRes) return;
+
+            if (_.get(targetItem, 'history', []).length === 0) targetItem.history = [];
+            targetItem.history.push(targetRes);
+
+            _.set(
+              newScenario,
+              `${scenarioIndex}.response.${responseIndex}`,
+              {
+                updated_at: moment()
+                  .toISOString(),
+                text: value,
+              },
+            );
+
+            dispatch({
+              type: 'app/updateState',
+              payload: {
+                scenario: newScenario,
+              },
+            });
+
+            this.setState({ editModal: this.getInitialEditModal() });
+          }}
+          close={() => {
+            this.setState({ editModal: this.getInitialEditModal() });
+          }}
         />
         <div className={styles.row1}>
           <div className={styles.board}>
@@ -252,6 +305,16 @@ class Main extends React.Component {
                     text={msg.text}
                     alignLeft={!msg.is_user}
                     editable={!!msg.edit_path}
+                    openEditModal={() => {
+                      if (!msg.edit_path) return;
+                      this.setState({
+                        editModal: {
+                          visible: true,
+                          editPath: msg.edit_path,
+                          originalValue: msg.text,
+                        }
+                      });
+                    }}
                   />
                 );
               })}
