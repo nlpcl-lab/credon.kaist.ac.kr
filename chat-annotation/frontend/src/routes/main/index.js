@@ -2,7 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import moment from 'moment';
 import { connect } from 'dva';
-import { Button, Input } from 'antd';
+import { Button, Input, Tooltip } from 'antd';
 
 
 import styles from './index.less';
@@ -268,13 +268,15 @@ class Main extends React.Component {
             />
           </div>
           <div className={styles.chat}>
-            {exportButtonVisible ?
-              <Button
-                className={styles.exportButton}
-                shape="circle"
-                icon="export"
-                onClick={() => this.setState({ exportModalVisible: true })}
-              /> : null}
+            {true || exportButtonVisible ?
+              <Tooltip title="Export">
+                <Button
+                  className={styles.exportButton}
+                  shape="circle"
+                  icon="export"
+                  onClick={() => this.setState({ exportModalVisible: true })}
+                />
+              </Tooltip> : null}
             <div
               ref={(el) => {
                 this.bubbles = el;
