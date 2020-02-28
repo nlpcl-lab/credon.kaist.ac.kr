@@ -309,17 +309,17 @@ class Main extends React.Component {
             {this.renderInput()}
           </div>
         </div>
-        <div className={styles.row2}>
-          <JsonEditor
-            value={app.scenario}
-            onChange={(scenario) => {
-              dispatch({
-                type: 'app/updateState',
-                payload: { scenario },
-              });
-            }}
-          />
-        </div>
+        {/*<div className={styles.row2}>*/}
+        {/*<JsonEditor*/}
+        {/*value={app.scenario}*/}
+        {/*onChange={(scenario) => {*/}
+        {/*dispatch({*/}
+        {/*type: 'app/updateState',*/}
+        {/*payload: { scenario },*/}
+        {/*});*/}
+        {/*}}*/}
+        {/*/>*/}
+        {/*</div>*/}
       </div>
     );
   }
