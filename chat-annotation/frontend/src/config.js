@@ -6,7 +6,6 @@ const config = {
       INFO: 'INFO',
     },
   },
-  serverUrl: 'http://localhost:6060'
 };
 
 export default config;
