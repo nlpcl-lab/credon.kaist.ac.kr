@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import queryString from 'query-string';
-import pathToRegexp from 'path-to-regexp';
 import { routerRedux } from 'dva/router';
 
 import * as service from '../services';
@@ -44,7 +43,7 @@ export default {
           },
         });
       } catch (e) {
-        console.log(e);
+        yield put(routerRedux.push('/404'));
       }
     },
     * putAnnotation({ payload }, { put, call, select }) {
@@ -57,12 +56,13 @@ export default {
         console.error('[putAnnotation] app.turker_id is null');
         return;
       }
+      console.log('[putAnnotation] app:', app);
       try {
         const res = yield call(service.putAnnotation, {
           key: app.key,
           turker_id: app.turker_id,
           progress: app.progress,
-          chat_annotation: app.scenario,
+          chat_scenario: app.scenario,
         });
         console.log('[putAnnotation] res', res);
       } catch (err) {

@@ -87,6 +87,7 @@ class Main extends React.Component {
         type: 'app/updateState',
         payload,
       });
+      dispatch({ type: 'app/putAnnotation' });
     }
   };
 
@@ -226,7 +227,6 @@ class Main extends React.Component {
       scenario,
       progress
     } = app;
-
 
     const messages = this.buildMessages();
 

@@ -50,9 +50,10 @@ def get_annotation():
 def put_annotation():
     # /api/annotation?key=gzkupvhjzo&turker_id=123123
     random_string_key = request.args.get('key', '')
-    turker_id = request.args.get('turker_id', 0)
+    turker_id = request.args.get('turker_id', '')
 
     data = request.get_json()
+    print('data:', data)
     progress = data.get('progress', 0)
     chat_scenario = data.get('chat_scenario', [])
 
@@ -62,7 +63,7 @@ def put_annotation():
         return Response(status=404)
     try:
         annotation = Annotation.objects.get(scenario=scenario, turker_id=turker_id)
-    except Scenario.DoesNotExist:
+    except Annotation.DoesNotExist:
         annotation = Annotation(scenario=scenario, turker_id=turker_id)
         annotation.save()
 

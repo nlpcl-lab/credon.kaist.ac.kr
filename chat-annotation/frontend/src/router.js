@@ -1,19 +1,23 @@
 import React from 'react';
-import {Redirect, Route, routerRedux, Switch} from 'dva/router';
+import { Redirect, Route, routerRedux, Switch } from 'dva/router';
 import dynamic from 'dva/dynamic';
 
 import App from './routes/app';
 
-const {ConnectedRouter} = routerRedux;
+const { ConnectedRouter } = routerRedux;
 
 export const routes = [
   {
     path: '/',
     component: () => import('./routes/main'),
   },
+  {
+    path: '/404',
+    component: () => import('./routes/404'),
+  },
 ];
 
-export default function ({history, app}) {
+export default function ({ history, app }) {
   history.listen((location, action) => {
 
   });
@@ -26,7 +30,7 @@ export default function ({history, app}) {
       <App>
         <Switch>
           {
-            routes.map(({path, ...dynamics}, key) => {
+            routes.map(({ path, ...dynamics }, key) => {
               return (
                 <Route
                   key={key}
@@ -36,7 +40,7 @@ export default function ({history, app}) {
                     app,
                     ...dynamics,
                   })}
-                />)
+                />);
             })
           }
           <Route component={error}/>
