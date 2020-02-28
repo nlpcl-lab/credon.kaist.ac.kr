@@ -52,20 +52,7 @@ class Main extends React.Component {
           this.botTypingTimeoutId = null;
         }, 2000);
 
-        scenario[progress + 1].displayed_at = moment()
-          .toISOString();
-
-        const payload = { progress: progress + 1 };
-
-        const scene = scenario[progress + 1];
-        if (_.get(scene, 'update_document.title', '')) payload.title = _.get(scene, 'update_document.title');
-        if (_.get(scene, 'update_document.body', '')) payload.body = _.get(scene, 'update_document.body');
-        if (_.get(scene, 'update_document.highlight_text', '')) payload.highlight_text = _.get(scene, 'update_document.highlight_text');
-
-        dispatch({
-          type: 'app/updateState',
-          payload,
-        });
+        this.moveToNextStep();
       }
     }, 3000);
   }
@@ -78,6 +65,28 @@ class Main extends React.Component {
       this.bubbles.scrollTop = this.bubbles.scrollHeight;
     }
   }
+
+  moveToNextStep = (params = {}) => {
+    const { app, dispatch } = this.props;
+    const { progress, scenario } = app;
+    scenario[progress + 1].displayed_at = moment()
+      .toISOString();
+
+    const payload = {
+      ...params,
+      progress: progress + 1
+    };
+
+    const scene = scenario[progress + 1];
+    if (_.get(scene, 'update_document.title', '')) payload.title = _.get(scene, 'update_document.title');
+    if (_.get(scene, 'update_document.body', '')) payload.body = _.get(scene, 'update_document.body');
+    if (_.get(scene, 'update_document.highlight_text', '')) payload.highlight_text = _.get(scene, 'update_document.highlight_text');
+
+    dispatch({
+      type: 'app/updateState',
+      payload,
+    });
+  };
 
 
   updateInput = (input) => {
@@ -146,12 +155,20 @@ class Main extends React.Component {
         exportModalVisible: true,
       });
     }
-    dispatch({
-      type: 'app/updateState',
-      payload: {
+    if (newScenario[progress].message.indexOf('turker-id') >= 0) {
+      // When asked for turker_id, only set the response once
+      this.moveToNextStep({
+        turker_id: trimmedValue,
         scenario: newScenario,
-      },
-    });
+      });
+    } else {
+      dispatch({
+        type: 'app/updateState',
+        payload: {
+          scenario: newScenario,
+        },
+      });
+    }
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
       this.timeoutId = null;

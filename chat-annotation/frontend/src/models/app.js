@@ -11,6 +11,7 @@ export default {
   namespace: 'app',
   state: {
     key: '',
+    turker_id: '',
     title: '',
     body: '',
     highlight_text: '',
