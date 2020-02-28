@@ -11,7 +11,7 @@ export async function getAnnotation(params) {
   return superagent.get('/api/annotation')
     .query({
       key: params.key,
-      turker_id: params.turker.id
+      turker_id: params.turker_id,
     });
 }
 
@@ -19,7 +19,7 @@ export async function putAnnotation(params) {
   return superagent.put('/api/annotation')
     .query({
       key: params.key,
-      turker_id: params.turker.id
+      turker_id: params.turker_id,
     })
     .send({
       progress: params.progress,
