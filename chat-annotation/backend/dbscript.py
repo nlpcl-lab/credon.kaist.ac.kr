@@ -16,6 +16,24 @@ def insert_data(path):
             doc_id = item['doc_id']
             chat_scenario = item['chat_scenario']
 
+            for msg in chat_scenario:
+                if msg['message'] == 'please click the ‘export’ button':
+                    msg['type'] = 'CHOICE'
+                    msg['options'] = [
+                        {
+                            'label': 'export',
+                            'description': '',
+                        }
+                    ]
+
+            chat_scenario[-1]['type'] = 'CHOICE'
+            chat_scenario[-1]['options'] = [
+                {
+                    'label': 'export',
+                    'description': '',
+                }
+            ]
+
             if Scenario.objects.filter(doc_id=doc_id).count():
                 continue
 
