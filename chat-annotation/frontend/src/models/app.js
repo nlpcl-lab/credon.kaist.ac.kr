@@ -25,6 +25,9 @@ export default {
     * goTo({ payload }, { put, call }) {
       yield put(routerRedux.push(payload));
     },
+    * getScenario({ payload }, { put, call }) {
+      yield put(routerRedux.push(payload));
+    },
   },
   reducers: {
     updateState(state, { payload }) {
