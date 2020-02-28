@@ -76,4 +76,4 @@ def put_annotation():
 
 if __name__ == '__main__':
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', True)
-    app.run(host='0.0.0.0', debug=FLASK_DEBUG, port=6060)
+    app.run(host='0.0.0.0', debug=FLASK_DEBUG, port=6061)
