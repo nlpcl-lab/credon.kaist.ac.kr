@@ -1,4 +1,5 @@
 import dva from 'dva';
+import createHistory from 'history/createBrowserHistory';
 import { message } from 'antd';
 
 import router from './router';
@@ -10,7 +11,9 @@ message.config({
   maxCount: 2,
 });
 
-const app = dva();
+const app = dva({
+  history: createHistory(),
+});
 app.model(appModel);
 app.router(router);
 app.start('#root');
