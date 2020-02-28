@@ -46,6 +46,33 @@ def get_annotation():
     return json.dumps({'annotation': annotation.dump()})
 
 
+@app.route("/api/annotation", methods=["PUT"])
+def put_annotation():
+    # /api/annotation?key=gzkupvhjzo&turker_id=123123
+    random_string_key = request.args.get('key', '')
+    turker_id = request.args.get('turker_id', 0)
+
+    data = request.get_json()
+    progress = data.get('progress', 0)
+    chat_scenario = data.get('chat_scenario', [])
+
+    try:
+        scenario = Scenario.objects.get(random_string_key=random_string_key)
+    except Scenario.DoesNotExist:
+        return Response(status=404)
+    try:
+        annotation = Annotation.objects.get(scenario=scenario, turker_id=turker_id)
+    except Scenario.DoesNotExist:
+        annotation = Annotation(scenario=scenario, turker_id=turker_id)
+        annotation.save()
+
+    annotation.progress = progress
+    annotation.chat_scenario = chat_scenario
+    annotation.save()
+
+    return json.dumps({'annotation': annotation.dump()})
+
+
 if __name__ == '__main__':
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', True)
     app.run(host='0.0.0.0', debug=FLASK_DEBUG, port=6060)
