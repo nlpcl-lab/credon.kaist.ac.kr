@@ -15,6 +15,7 @@ def insert_data(path):
         for item in tqdm(data):
             doc_id = item['doc_id']
             chat_scenario = item['chat_scenario']
+            random_string_key = item['random_string_key']
 
             for msg in chat_scenario:
                 if msg['message'] == 'please click the ‘export’ button':
@@ -37,7 +38,11 @@ def insert_data(path):
             if Scenario.objects.filter(doc_id=doc_id).count():
                 continue
 
-            Scenario(doc_id=doc_id, chat_scenario=chat_scenario).save()
+            Scenario(
+                doc_id=doc_id,
+                chat_scenario=chat_scenario,
+                random_string_key=random_string_key
+            ).save()
 
 
 def db_backup(memo):

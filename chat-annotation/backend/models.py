@@ -20,6 +20,13 @@ class Scenario(db.Document):
             'created_at': str(self.created_at),
         }
 
+    meta = {
+        'indexes': [
+            'doc_id',
+            'random_string_key',
+        ],
+    }
+
 
 class Annotation(db.Document):
     scenario = db.ReferenceField(Scenario)

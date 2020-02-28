@@ -15,6 +15,10 @@ db = MongoEngine(app)
 def index():
     return render_template('index.html')
 
+@app.route("/", methods=["GET"])
+def index():
+    return render_template('index.html')
+
 
 if __name__ == '__main__':
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', True)
