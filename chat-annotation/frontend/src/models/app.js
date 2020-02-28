@@ -3,6 +3,8 @@ import queryString from 'query-string';
 import pathToRegexp from 'path-to-regexp';
 import { routerRedux } from 'dva/router';
 
+import * as service from '../services';
+
 import scenarioSample from './scenario_sample.json';
 
 export default {
@@ -17,16 +19,31 @@ export default {
   subscriptions: {
     setupHistory({ dispatch, history }) {
       history.listen(({ pathname, search }) => {
-
+        const query = queryString.parse(search);
+        console.log('query:', query);
+        if (query.k) {
+          dispatch({
+            type: 'getScenario',
+            payload: { key: query.k },
+          });
+        }
       });
     },
   },
   effects: {
-    * goTo({ payload }, { put, call }) {
-      yield put(routerRedux.push(payload));
-    },
     * getScenario({ payload }, { put, call }) {
-      yield put(routerRedux.push(payload));
+      try {
+        const res = yield call(service.getScenario, { key: payload.key });
+        const body = JSON.parse(res.text);
+        yield put({
+          type: 'updateState',
+          payload: {
+            scenario: _.get(body, 'scenario.chat_scenario'),
+          },
+        });
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   reducers: {

@@ -14,7 +14,10 @@ module.exports = {
     inline: true,
     hot: true,
     host: 'localhost',
-    port: 5500
+    port: 5500,
+    proxy: {
+      '/api': 'http://localhost:6060'
+    }
   },
   resolve: {
     extensions: ['.js', '.less', '.css', '.svg']
