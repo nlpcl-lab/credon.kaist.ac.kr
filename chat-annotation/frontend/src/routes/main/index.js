@@ -40,20 +40,12 @@ class Main extends React.Component {
       const { isUserTyping } = this.state;
 
       // if (isUserTyping) return;
-      if ([Config.constants.types.TYPING, Config.constants.types.CHOICE].indexOf(scenario[progress].type) >= 0 && _.get(scenario, `${progress}.response`, []).length === 0) {
+      if ([Config.constants.types.TYPING, Config.constants.types.CHOICE].indexOf(scenario[progress].type) >= 0
+        && _.get(scenario, `${progress}.response`, []).length === 0) {
         return;
       }
 
-      if (progress + 1 < scenario.length) {
-        this.setState({ isBotTyping: true });
-        if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
-        this.botTypingTimeoutId = setTimeout(() => {
-          this.setState({ isBotTyping: false, });
-          this.botTypingTimeoutId = null;
-        }, 2000);
-
-        this.moveToNextStep();
-      }
+      this.moveToNextStep();
     }, 3000);
   }
 
@@ -69,23 +61,33 @@ class Main extends React.Component {
   moveToNextStep = (params = {}) => {
     const { app, dispatch } = this.props;
     const { progress, scenario } = app;
-    scenario[progress + 1].displayed_at = moment()
-      .toISOString();
 
-    const payload = {
-      ...params,
-      progress: progress + 1
-    };
+    if (progress + 1 < scenario.length) {
+      this.setState({ isBotTyping: true });
+      if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
+      this.botTypingTimeoutId = setTimeout(() => {
+        this.setState({ isBotTyping: false, });
+        this.botTypingTimeoutId = null;
+      }, 2000);
 
-    const scene = scenario[progress + 1];
-    if (_.get(scene, 'update_document.title', '')) payload.title = _.get(scene, 'update_document.title');
-    if (_.get(scene, 'update_document.body', '')) payload.body = _.get(scene, 'update_document.body');
-    if (_.get(scene, 'update_document.highlight_text', '')) payload.highlight_text = _.get(scene, 'update_document.highlight_text');
+      scenario[progress + 1].displayed_at = moment()
+        .toISOString();
 
-    dispatch({
-      type: 'app/updateState',
-      payload,
-    });
+      const payload = {
+        ...params,
+        progress: progress + 1
+      };
+
+      const scene = scenario[progress + 1];
+      if (_.get(scene, 'update_document.title', '')) payload.title = _.get(scene, 'update_document.title');
+      if (_.get(scene, 'update_document.body', '')) payload.body = _.get(scene, 'update_document.body');
+      if (_.get(scene, 'update_document.highlight_text', '')) payload.highlight_text = _.get(scene, 'update_document.highlight_text');
+
+      dispatch({
+        type: 'app/updateState',
+        payload,
+      });
+    }
   };
 
 
