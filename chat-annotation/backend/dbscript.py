@@ -1,14 +1,10 @@
 import os
 import json
-import argparse
 from tqdm import tqdm
-import pickle
-from bson import json_util
 from mongoengine import connect
 
 from models import Scenario, Annotation
 import config as config
-from datetime import datetime
 
 collections = ['scenario', 'annotation']
 

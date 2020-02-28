@@ -119,21 +119,6 @@ class Main extends React.Component {
     return messages;
   };
 
-  onClickRollback = () => {
-    const { app, dispatch } = this.props;
-    const { progress, scenario } = app;
-
-    const newScenario = _.cloneDeep(scenario);
-    newScenario[progress].response = [];
-    dispatch({
-      type: 'app/updateState',
-      payload: {
-        progress: progress >= 1 ? progress - 1 : progress,
-        scenario: newScenario,
-      },
-    });
-  };
-
   addMessage = (value) => {
     const { app, dispatch } = this.props;
     const { progress, scenario } = app;
@@ -224,7 +209,6 @@ class Main extends React.Component {
 
     const messages = this.buildMessages();
 
-    console.log('editModal: ', editModal);
     return (
       <div className={styles.main}>
         <ExportModal
@@ -286,10 +270,10 @@ class Main extends React.Component {
           <div className={styles.chat}>
             {exportButtonVisible ?
               <Button
-                className={styles.rollback}
+                className={styles.exportButton}
                 shape="circle"
                 icon="export"
-                onClick={() => this.onClickRollback()}
+                onClick={() => this.setState({ exportModalVisible: true })}
               /> : null}
             <div
               ref={(el) => {
