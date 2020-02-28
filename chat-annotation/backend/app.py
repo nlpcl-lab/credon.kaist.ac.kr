@@ -7,9 +7,8 @@ sys.path.append(base_dir)
 
 app = Flask(__name__)
 
-
-# app.config.from_object('config.Config')
-# db = MongoEngine(app)
+app.config.from_object('config.Config')
+db = MongoEngine(app)
 
 
 @app.route("/", methods=["GET"])
