@@ -30,6 +30,7 @@ class Annotation(db.Document):
     scenario = db.ReferenceField(Scenario)
     turker_id = db.StringField(default='')
     chat_scenario = db.ListField(default=[])
+    progress = db.IntField(default=0)
 
     created_at = db.DateTimeField(default=datetime.datetime.now)
     updated_at = db.DateTimeField(default=datetime.datetime.now)
