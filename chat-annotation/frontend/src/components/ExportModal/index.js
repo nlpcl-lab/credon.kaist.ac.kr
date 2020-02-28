@@ -17,7 +17,7 @@ class ExportModal extends React.Component {
 
     const text = [];
     messages.forEach((message) => {
-      text.push(`${message.is_user ? 'you' : 'bot'}:"${message.text}"`);
+      text.push(`${message.is_user ? 'you' : 'bot'},"${message.text}","${message.updated_at}"`);
     });
     return (
       <Modal

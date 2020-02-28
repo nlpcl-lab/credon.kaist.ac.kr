@@ -105,6 +105,7 @@ class Main extends React.Component {
         is_user: false,
         edit_path: null,
         text: scenario[i].message,
+        updated_at: scenario[i].displayed_at ? scenario[i].displayed_at : '',
       });
       if (_.isArray(scenario[i].response)) {
         scenario[i].response.forEach((item, index) => {
@@ -112,6 +113,7 @@ class Main extends React.Component {
             is_user: true,
             edit_path: scenario[i].type === Config.constants.types.TYPING ? `${i}.response.${index}` : null,
             text: item.text,
+            updated_at: item.updated_at ? item.updated_at : '',
           });
         });
       }
@@ -220,7 +222,6 @@ class Main extends React.Component {
           visible={editModal.visible}
           originalValue={editModal.originalValue}
           updateValue={(value) => {
-            console.log('value:', value);
             const newScenario = _.cloneDeep(scenario);
             const ss = editModal.editPath.split('.');
             if (ss.length !== 3) return;
@@ -268,7 +269,7 @@ class Main extends React.Component {
             />
           </div>
           <div className={styles.chat}>
-            {true || exportButtonVisible ?
+            {exportButtonVisible ?
               <Tooltip title="Export">
                 <Button
                   className={styles.exportButton}
