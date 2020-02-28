@@ -1,7 +1,5 @@
 import datetime
 from flask_mongoengine import MongoEngine
-import uuid
-import hashlib
 
 db = MongoEngine()
 
