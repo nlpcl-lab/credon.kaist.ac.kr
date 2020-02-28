@@ -29,6 +29,23 @@ def get_scenario():
         return Response(status=404)
 
 
+@app.route("/api/annotation", methods=["GET"])
+def get_annotation():
+    # /api/annotation?key=gzkupvhjzo&turker_id=123123
+    random_string_key = request.args.get('key', '')
+    turker_id = request.args.get('turker_id', 0)
+    try:
+        scenario = Scenario.objects.get(random_string_key=random_string_key)
+    except Scenario.DoesNotExist:
+        return Response(status=404)
+    try:
+        annotation = Annotation.objects.get(scenario=scenario, turker_id=turker_id)
+    except Scenario.DoesNotExist:
+        return Response(status=404)
+
+    return json.dumps({'annotation': annotation.dump()})
+
+
 if __name__ == '__main__':
     FLASK_DEBUG = os.getenv('FLASK_DEBUG', True)
     app.run(host='0.0.0.0', debug=FLASK_DEBUG, port=6060)

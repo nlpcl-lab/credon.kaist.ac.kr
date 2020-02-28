@@ -20,7 +20,6 @@ export default {
     setupHistory({ dispatch, history }) {
       history.listen(({ pathname, search }) => {
         const query = queryString.parse(search);
-        console.log('query:', query);
         if (query.k) {
           dispatch({
             type: 'getScenario',
