@@ -23,6 +23,7 @@ export default function ({ history, app }) {
   });
   const error = dynamic({
     app,
+    component: () => import('./routes/404'),
   });
 
   return (

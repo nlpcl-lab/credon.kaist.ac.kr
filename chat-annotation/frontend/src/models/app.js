@@ -15,7 +15,7 @@ export default {
     title: '',
     body: '',
     highlight_text: '',
-    progress: 22,
+    progress: 0,
     scenario: scenarioSample,
   },
   subscriptions: {
