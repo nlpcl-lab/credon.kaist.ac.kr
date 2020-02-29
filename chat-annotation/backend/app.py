@@ -7,7 +7,7 @@ from models import Scenario, Annotation
 base_dir = os.path.abspath(os.path.dirname(__file__) + '/')
 sys.path.append(base_dir)
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 app.config.from_object('config.Config')
 db = MongoEngine(app)
@@ -66,7 +66,7 @@ def put_annotation():
         annotation = Annotation(scenario=scenario, turker_id=turker_id)
         annotation.save()
 
-    if annotation.progress > progress:
+    if progress < annotation.progress:
         print('invalid progress number')
         print('annotation.progress:', annotation.progress)
         print('progress:', progress)

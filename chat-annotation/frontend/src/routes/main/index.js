@@ -268,10 +268,9 @@ class Main extends React.Component {
 
             dispatch({
               type: 'app/updateState',
-              payload: {
-                scenario: newScenario,
-              },
+              payload: { scenario: newScenario }
             });
+            dispatch({ type: 'app/putAnnotation' });
 
             this.setState({ editModal: this.getInitialEditModal() });
           }}

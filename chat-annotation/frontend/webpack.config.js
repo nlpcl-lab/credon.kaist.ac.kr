@@ -4,19 +4,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: '[name].js',
-    publicPath: '/static/',
+    path: path.join(__dirname, '/build'),
+    filename: '[name].[hash].js',
+    publicPath: '/',
     chunkFilename: '[id].[hash].js',
   },
   devServer: {
-    contentBase: path.join(__dirname, '/dist'),
+    publicPath: '/',
     inline: true,
     hot: true,
+    historyApiFallback: true,
     host: 'localhost',
     port: 5500,
     proxy: {
-      '/api': 'http://localhost:6060'
+      '/api': 'http://localhost:6061',
     }
   },
   resolve: {

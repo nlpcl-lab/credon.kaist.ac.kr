@@ -3,7 +3,7 @@ venv/
 .idea/
 
 chat-annotation/frontend/node_modules/
-chat-annotation/frontend/dist/
+chat-annotation/frontend/build/
 
 chat-annotation/backend/config.py
 chat-annotation/backend/data/

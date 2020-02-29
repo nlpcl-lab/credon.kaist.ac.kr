@@ -1,5 +1,5 @@
 import dva from 'dva';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { message } from 'antd';
 
 import router from './router';
@@ -12,7 +12,7 @@ message.config({
 });
 
 const app = dva({
-  history: createHistory(),
+  history: createBrowserHistory(),
 });
 app.model(appModel);
 app.router(router);
