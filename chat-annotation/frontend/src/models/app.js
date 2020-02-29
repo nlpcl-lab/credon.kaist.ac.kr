@@ -26,6 +26,8 @@ export default {
             type: 'getScenario',
             payload: { key: query.k },
           });
+        } else {
+          dispatch(routerRedux.push('/404'));
         }
       });
     },

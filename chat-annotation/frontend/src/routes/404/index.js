@@ -14,6 +14,7 @@ class NotFound extends React.Component {
 
   render() {
     const { app, dispatch } = this.props;
+    console.log('render 404');
     return (
       <Result
         className={styles.notFound}
