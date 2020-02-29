@@ -53,7 +53,6 @@ def put_annotation():
     turker_id = request.args.get('turker_id', '')
 
     data = request.get_json()
-    print('data:', data)
     progress = data.get('progress', 0)
     chat_scenario = data.get('chat_scenario', [])
 
@@ -66,6 +65,12 @@ def put_annotation():
     except Annotation.DoesNotExist:
         annotation = Annotation(scenario=scenario, turker_id=turker_id)
         annotation.save()
+
+    if annotation.progress > progress:
+        print('invalid progress number')
+        print('annotation.progress:', annotation.progress)
+        print('progress:', progress)
+        return Response(status=403)
 
     annotation.progress = progress
     annotation.chat_scenario = chat_scenario
