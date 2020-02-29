@@ -43,6 +43,7 @@ export default {
           },
         });
       } catch (e) {
+        console.log('go 404!');
         yield put(routerRedux.push('/404'));
       }
     },

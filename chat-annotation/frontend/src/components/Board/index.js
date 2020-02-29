@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Table, Button, Empty } from 'antd';
+import { Empty } from 'antd';
 import Highlighter from 'react-highlight-words';
 
 import styles from './index.less';
@@ -14,6 +13,7 @@ class Board extends React.Component {
         {title ? <div className={styles.title}>{title}</div> : null}
         {body ? <Highlighter
           className={styles.body}
+          searchWords={[]}
           findChunks={() => {
             const start = body.indexOf(highlightText);
             if (start === -1) {

@@ -10,6 +10,9 @@ collections = ['scenario', 'annotation']
 
 
 def insert_data(path):
+    for item in Scenario.objects.all():
+        item.delete()
+
     with open(path) as f:
         data = json.load(f)
         for item in tqdm(data):

@@ -31,10 +31,11 @@ class Main extends React.Component {
     };
     this.userTypingTimeoutId = null;
     this.botTypingTimeoutId = null;
+    this.intervalId = null;
   }
 
   componentDidMount() {
-    setInterval(() => {
+    this.intervalId = setInterval(() => {
       const { app, dispatch } = this.props;
       const { progress, scenario } = app;
       const { isUserTyping } = this.state;
@@ -44,10 +45,10 @@ class Main extends React.Component {
         && _.get(scenario, `${progress}.response`, []).length === 0) {
         return;
       }
-
       this.moveToNextStep();
     }, 3000);
   }
+
 
   componentDidUpdate(prevProps, prevState) {
     const { app } = this.props;
@@ -132,6 +133,13 @@ class Main extends React.Component {
     }
     return messages;
   };
+
+
+  componentWillUnmount() {
+    if (this.intervalId) clearInterval(this.intervalId);
+    if (this.userTypingTimeoutId) clearTimeout(this.userTypingTimeoutId);
+    if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
+  }
 
   addMessage = (value) => {
     const { app, dispatch } = this.props;
