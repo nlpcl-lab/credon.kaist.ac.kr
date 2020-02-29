@@ -7,5 +7,6 @@ chat-annotation/frontend/build/
 
 chat-annotation/backend/config.py
 chat-annotation/backend/data/
+chat-annotation/backend/static/
 
 .vscode/*
