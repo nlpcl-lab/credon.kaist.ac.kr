@@ -1,7 +1,8 @@
 import _ from 'lodash';
-import { pathToRegexp}  from 'path-to-regexp';
+import { pathToRegexp } from 'path-to-regexp';
 import queryString from 'query-string';
 import { routerRedux } from 'dva/router';
+import { Modal } from 'antd';
 
 import * as service from '../services';
 
@@ -21,6 +22,8 @@ export default {
   subscriptions: {
     setupHistory({ dispatch, history }) {
       history.listen(({ pathname, search }) => {
+        console.log('history listen :', pathname);
+
         const match = pathToRegexp('/')
           .exec(pathname);
 
@@ -51,8 +54,11 @@ export default {
           },
         });
       } catch (e) {
-        console.log('go 404!');
-        yield put(routerRedux.push('/404'));
+        Modal.warning({
+          title: 'Invalid access',
+          content: 'Please check the given url...',
+        });
+        yield put(routerRedux.replace('/404'));
       }
     },
     * putAnnotation({ payload }, { put, call, select }) {
