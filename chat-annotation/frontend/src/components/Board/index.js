@@ -29,6 +29,7 @@ class Board extends React.Component {
           }}
           textToHighlight={body ? body : ''}
         /> : null}
+        {body}
         {!title && !body ? <Empty className={styles.empty} description={false}/> : null}
       </div>
     );

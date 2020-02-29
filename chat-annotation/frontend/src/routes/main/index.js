@@ -46,7 +46,7 @@ class Main extends React.Component {
         return;
       }
       this.moveToNextStep();
-    }, 2500);
+    }, 2000);
   }
 
 
@@ -57,6 +57,12 @@ class Main extends React.Component {
       || scenario !== prevProps.app.scenario) {
       this.bubbles.scrollTop = this.bubbles.scrollHeight;
     }
+  }
+
+  componentWillUnmount() {
+    if (this.intervalId) clearInterval(this.intervalId);
+    if (this.userTypingTimeoutId) clearTimeout(this.userTypingTimeoutId);
+    if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
   }
 
   moveToNextStep = (params = {}) => {
@@ -134,12 +140,6 @@ class Main extends React.Component {
     return messages;
   };
 
-
-  componentWillUnmount() {
-    if (this.intervalId) clearInterval(this.intervalId);
-    if (this.userTypingTimeoutId) clearTimeout(this.userTypingTimeoutId);
-    if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
-  }
 
   addMessage = (value) => {
     const { app, dispatch } = this.props;

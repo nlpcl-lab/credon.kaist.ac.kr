@@ -1,28 +1,22 @@
 @import '../../color';
 
-@board-width: 700px;
-@chat-width: 450px;
-@height: 650px;
-
 .main {
   > .row1 {
     display: flex;
     width: @board-width + @chat-width;
-    height: 100%;
     margin: 40px auto 10px auto;
-    align-items: center;
-    border: 1px solid @oc-gray-4;
 
     > .board {
       width: @board-width;
-      height: @height;
-      padding: 10px 15px;
-      border-right: 1px solid @oc-gray-4;
-      overflow-y: auto;
     }
 
     > .chat {
       width: @chat-width;
+      height: @height;
+      border-top: 1px solid @oc-gray-4;
+      border-right: 1px solid @oc-gray-4;
+      border-bottom: 1px solid @oc-gray-4;
+      overflow-y: scroll;
       position: relative;
 
       > .exportButton {
@@ -32,8 +26,6 @@
       }
 
       > .bubbles {
-        height: @height;
-        overflow-y: scroll;
         padding-top: 5px;
         padding-bottom: 130px;
       }
