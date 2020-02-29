@@ -8,10 +8,6 @@ import styles from './index.less';
 const { TextArea } = Input;
 
 class EditModal extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { visible, originalValue, updateValue, close } = this.props;
     return (

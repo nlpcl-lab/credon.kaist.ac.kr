@@ -130,7 +130,7 @@ class Main extends React.Component {
         scenario[i].response.forEach((item, index) => {
           messages.push({
             is_user: true,
-            edit_path: scenario[i].type === Config.constants.types.TYPING ? `${i}.response.${index}` : null,
+            edit_path: scenario[i].message.indexOf('turker-id') === -1 && scenario[i].type === Config.constants.types.TYPING ? `${i}.response.${index}` : null,
             text: item.text,
             updated_at: item.updated_at ? item.updated_at : '',
           });
@@ -201,7 +201,7 @@ class Main extends React.Component {
       progress
     } = app;
 
-    if (exportButtonVisible) {
+    if (exportButtonVisible || progress === scenario.length - 1) {
       return <OptionModal
         options={[
           {
