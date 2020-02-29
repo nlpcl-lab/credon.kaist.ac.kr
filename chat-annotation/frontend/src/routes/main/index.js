@@ -38,15 +38,15 @@ class Main extends React.Component {
     this.intervalId = setInterval(() => {
       const { app, dispatch } = this.props;
       const { progress, scenario } = app;
-      const { isUserTyping } = this.state;
+      const { isUserTyping, isBotTyping } = this.state;
 
-      // if (isUserTyping) return;
+      if (isBotTyping) return;
       if ([Config.constants.types.TYPING, Config.constants.types.CHOICE].indexOf(scenario[progress].type) >= 0
         && _.get(scenario, `${progress}.response`, []).length === 0) {
         return;
       }
       this.moveToNextStep();
-    }, 3000);
+    }, 2500);
   }
 
 
@@ -69,7 +69,7 @@ class Main extends React.Component {
       this.botTypingTimeoutId = setTimeout(() => {
         this.setState({ isBotTyping: false, });
         this.botTypingTimeoutId = null;
-      }, 2000);
+      }, 4000);
 
       scenario[progress + 1].displayed_at = moment()
         .toISOString();
