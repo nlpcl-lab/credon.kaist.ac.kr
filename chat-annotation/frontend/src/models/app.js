@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { pathToRegexp}  from 'path-to-regexp';
 import queryString from 'query-string';
 import { routerRedux } from 'dva/router';
 
@@ -20,14 +21,19 @@ export default {
   subscriptions: {
     setupHistory({ dispatch, history }) {
       history.listen(({ pathname, search }) => {
-        const query = queryString.parse(search);
-        if (query.k) {
-          dispatch({
-            type: 'getScenario',
-            payload: { key: query.k },
-          });
-        } else {
-          dispatch(routerRedux.push('/404'));
+        const match = pathToRegexp('/')
+          .exec(pathname);
+
+        if (match) {
+          const query = queryString.parse(search);
+          if (query.k) {
+            dispatch({
+              type: 'getScenario',
+              payload: { key: query.k },
+            });
+          } else {
+            dispatch(routerRedux.push('/404'));
+          }
         }
       });
     },
