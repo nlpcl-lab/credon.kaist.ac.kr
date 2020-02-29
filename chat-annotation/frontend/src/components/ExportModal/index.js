@@ -28,7 +28,7 @@ class ExportModal extends React.Component {
         onCancel={() => onChangeVisible(false)}
       >
         <textarea
-          rows="6"
+          rows="10"
           className={styles.textarea}
           ref={(el) => {
             this.textarea = el;

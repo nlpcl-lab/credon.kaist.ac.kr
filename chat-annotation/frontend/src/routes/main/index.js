@@ -188,11 +188,23 @@ class Main extends React.Component {
 
   renderInput = () => {
     const { app } = this.props;
-    const { input, isBotTyping } = this.state;
+    const { input, isBotTyping, exportButtonVisible } = this.state;
     const {
       scenario,
       progress
     } = app;
+
+    if (exportButtonVisible) {
+      return <OptionModal
+        options={[
+          {
+            label: 'export',
+            description: '',
+          }
+        ]}
+        onSelectValue={(value) => this.addMessage(value)}
+      />;
+    }
 
     const currentScene = scenario[progress];
     if (_.get(currentScene, 'type') === Config.constants.types.CHOICE
@@ -295,15 +307,6 @@ class Main extends React.Component {
             />
           </div>
           <div className={styles.chat}>
-            {exportButtonVisible ?
-              <Tooltip title="Export">
-                <Button
-                  className={styles.exportButton}
-                  shape="circle"
-                  icon="export"
-                  onClick={() => this.setState({ exportModalVisible: true })}
-                />
-              </Tooltip> : null}
             <div
               ref={(el) => {
                 this.bubbles = el;

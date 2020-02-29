@@ -5,27 +5,23 @@
     display: flex;
     width: @board-width + @chat-width;
     margin: 40px auto 10px auto;
+    border: 1px solid @oc-gray-4;
 
     > .board {
       width: @board-width;
+      height: @height;
+      overflow-y: scroll;
+      border-right: 1px solid @oc-gray-4;
+      padding: 10px 15px;
     }
 
     > .chat {
       width: @chat-width;
-      height: @height;
-      border-top: 1px solid @oc-gray-4;
-      border-right: 1px solid @oc-gray-4;
-      border-bottom: 1px solid @oc-gray-4;
-      overflow-y: scroll;
       position: relative;
 
-      > .exportButton {
-        position: absolute;
-        bottom: 15px;
-        right: -45px;
-      }
-
       > .bubbles {
+        height: @height;
+        overflow-y: scroll;
         padding-top: 5px;
         padding-bottom: 130px;
       }

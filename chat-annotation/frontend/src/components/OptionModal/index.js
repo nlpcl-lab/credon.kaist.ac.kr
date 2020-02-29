@@ -16,11 +16,15 @@ class OptionModal extends React.Component {
         style={{ flexWrap: options.length >= 5 ? 'wrap' : 'nowrap' }}
       >
         {options.map((option, index) => {
+          let width = '100%';
+          if (options.length >= 5) width = '130px';
+          if (options.length === 5 && index >= 3) width = '160px';
+
           return (
             <div
               key={index}
               className={styles.option}
-              style={{ width: options.length >= 5 ? '130px' : '100%' }}
+              style={{ width }}
               onClick={() => onSelectValue(option.label)}
             >
               {option.label}
