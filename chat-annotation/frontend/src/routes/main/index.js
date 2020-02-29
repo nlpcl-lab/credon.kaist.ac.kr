@@ -6,7 +6,7 @@ import { Button, Input, Tooltip } from 'antd';
 
 
 import styles from './index.less';
-import { Bubble, JsonEditor, Board, OptionModal, ExportModal, EditModal } from '../../components';
+import { Bubble, Board, OptionModal, ExportModal, EditModal } from '../../components';
 import Config from '../../config';
 
 const { TextArea } = Input;
@@ -69,33 +69,33 @@ class Main extends React.Component {
     const { app, dispatch } = this.props;
     const { progress, scenario } = app;
 
-    if (progress + 1 < scenario.length) {
-      this.setState({ isBotTyping: true });
-      if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
-      this.botTypingTimeoutId = setTimeout(() => {
-        this.setState({ isBotTyping: false, });
-        this.botTypingTimeoutId = null;
-      }, 4000);
+    if (progress + 1 >= scenario.length) return;
 
-      scenario[progress + 1].displayed_at = moment()
-        .toISOString();
+    this.setState({ isBotTyping: true });
+    if (this.botTypingTimeoutId) clearTimeout(this.botTypingTimeoutId);
+    this.botTypingTimeoutId = setTimeout(() => {
+      this.setState({ isBotTyping: false, });
+      this.botTypingTimeoutId = null;
+    }, 4000);
 
-      const payload = {
-        ...params,
-        progress: progress + 1
-      };
+    scenario[progress + 1].displayed_at = moment()
+      .toISOString();
 
-      const scene = scenario[progress + 1];
-      if (_.get(scene, 'update_document.title', '')) payload.title = _.get(scene, 'update_document.title');
-      if (_.get(scene, 'update_document.body', '')) payload.body = _.get(scene, 'update_document.body');
-      if (_.get(scene, 'update_document.highlight_text', '')) payload.highlight_text = _.get(scene, 'update_document.highlight_text');
+    const payload = {
+      ...params,
+      progress: progress + 1
+    };
 
-      dispatch({
-        type: 'app/updateState',
-        payload,
-      });
-      dispatch({ type: 'app/putAnnotation' });
-    }
+    const scene = scenario[progress + 1];
+    if (_.get(scene, 'update_document.title', '')) payload.title = _.get(scene, 'update_document.title');
+    if (_.get(scene, 'update_document.body', '')) payload.body = _.get(scene, 'update_document.body');
+    if (_.get(scene, 'update_document.highlight_text', '')) payload.highlight_text = _.get(scene, 'update_document.highlight_text');
+
+    dispatch({
+      type: 'app/updateState',
+      payload,
+    });
+    dispatch({ type: 'app/putAnnotation' });
   };
 
 
@@ -172,6 +172,13 @@ class Main extends React.Component {
         turker_id: trimmedValue,
         scenario: newScenario,
       });
+      dispatch({
+        type: 'app/getAnnotation',
+        payload: {
+          turker_id: trimmedValue,
+          key: app.key,
+        },
+      });
     } else {
       dispatch({
         type: 'app/updateState',
@@ -239,7 +246,7 @@ class Main extends React.Component {
 
   render() {
     const { app, dispatch } = this.props;
-    const { exportModalVisible, exportButtonVisible, isBotTyping, editModal } = this.state;
+    const { exportModalVisible, isBotTyping, editModal } = this.state;
     const {
       title,
       body,

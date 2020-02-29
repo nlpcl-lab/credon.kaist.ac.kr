@@ -61,17 +61,40 @@ export default {
         yield put(routerRedux.replace('/404'));
       }
     },
+    * getAnnotation({ payload }, { put, call }) {
+      try {
+        const res = yield call(service.getAnnotation, {
+          key: payload.key,
+          turker_id: payload.turker_id,
+        });
+        const body = JSON.parse(res.text);
+        console.log('body:', body);
+        Modal.info({
+          title: 'Conversation history already exists',
+          content: 'Your previous chat history has been restored.',
+        });
+        yield put({
+          type: 'updateState',
+          payload: {
+            progress: _.get(body, 'annotation.progress'),
+            scenario: _.get(body, 'annotation.chat_scenario'),
+          },
+        });
+      } catch (err) {
+        console.error('[getAnnotation]', err);
+      }
+    },
     * putAnnotation({ payload }, { put, call, select }) {
       const app = yield select(state => state.app);
       if (!app.key) {
-        console.error('[putAnnotation] app.key is null');
+        console.log('[putAnnotation] pass: app.key is null');
         return;
       }
       if (!app.turker_id) {
-        console.error('[putAnnotation] app.turker_id is null');
+        console.log('[putAnnotation] pass: app.turker_id is null');
         return;
       }
-      console.log('[putAnnotation] app:', app);
+      // console.log('[putAnnotation] app:', app);
       try {
         const res = yield call(service.putAnnotation, {
           key: app.key,
@@ -79,7 +102,7 @@ export default {
           progress: app.progress,
           chat_scenario: app.scenario,
         });
-        console.log('[putAnnotation] res', res);
+        console.log('[putAnnotation] success');
       } catch (err) {
         console.error('[putAnnotation]', err);
       }
