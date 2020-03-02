@@ -17,6 +17,7 @@ export default {
     body: '',
     highlight_text: '',
     progress: 0,
+    entrance_key: new Date().getTime(),
     scenario: scenarioSample,
   },
   subscriptions: {
@@ -101,6 +102,7 @@ export default {
           turker_id: app.turker_id,
           progress: app.progress,
           chat_scenario: app.scenario,
+          entrance_key: app.entrance_key,
         });
         console.log('[putAnnotation] success');
       } catch (err) {

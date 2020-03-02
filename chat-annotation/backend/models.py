@@ -28,6 +28,7 @@ class Scenario(db.Document):
 
 class Annotation(db.Document):
     scenario = db.ReferenceField(Scenario)
+    entrance_key = db.IntField(default=0)
     turker_id = db.StringField(default='')
     chat_scenario = db.ListField(default=[])
     progress = db.IntField(default=0)
@@ -38,6 +39,7 @@ class Annotation(db.Document):
     meta = {
         'indexes': [
             'scenario',
+            'annotation_key',
             'turker_id',
         ],
     }

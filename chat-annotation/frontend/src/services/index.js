@@ -20,6 +20,7 @@ export async function putAnnotation(params) {
     .query({
       key: params.key,
       turker_id: params.turker_id,
+      entrance_key: params.entrance_key,
     })
     .send({
       progress: params.progress,
