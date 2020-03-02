@@ -31,15 +31,16 @@ def get_scenario():
 
 @app.route("/api/annotation", methods=["GET"])
 def get_annotation():
-    # /api/annotation?key=gzkupvhjzo&turker_id=123123
+    # /api/annotation?key=gzkupvhjzo&turker_id=123123&entrance_key=123
     random_string_key = request.args.get('key', '')
     turker_id = request.args.get('turker_id', 0)
+    entrance_key = request.args.get('entrance_key', 0)
     try:
         scenario = Scenario.objects.get(random_string_key=random_string_key)
     except Scenario.DoesNotExist:
         return Response(status=404)
     try:
-        annotation = Annotation.objects.get(scenario=scenario, turker_id=turker_id)
+        annotation = Annotation.objects.get(scenario=scenario, turker_id=turker_id, entrance_key=entrance_key)
     except Scenario.DoesNotExist:
         return Response(status=404)
 
@@ -48,9 +49,10 @@ def get_annotation():
 
 @app.route("/api/annotation", methods=["PUT"])
 def put_annotation():
-    # /api/annotation?key=gzkupvhjzo&turker_id=123123
+    # /api/annotation?key=gzkupvhjzo&turker_id=123123&entrance_key=123
     random_string_key = request.args.get('key', '')
     turker_id = request.args.get('turker_id', '')
+    entrance_key = request.args.get('entrance_key', 0)
 
     data = request.get_json()
     progress = data.get('progress', 0)
@@ -61,9 +63,9 @@ def put_annotation():
     except Scenario.DoesNotExist:
         return Response(status=404)
     try:
-        annotation = Annotation.objects.get(scenario=scenario, turker_id=turker_id)
+        annotation = Annotation.objects.get(scenario=scenario, turker_id=turker_id, entrance_key=entrance_key)
     except Annotation.DoesNotExist:
-        annotation = Annotation(scenario=scenario, turker_id=turker_id)
+        annotation = Annotation(scenario=scenario, turker_id=turker_id, entrance_key=entrance_key)
         annotation.save()
 
     if progress < annotation.progress:

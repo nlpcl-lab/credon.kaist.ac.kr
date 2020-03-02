@@ -39,7 +39,7 @@ class Annotation(db.Document):
     meta = {
         'indexes': [
             'scenario',
-            'annotation_key',
+            'entrance_key',
             'turker_id',
         ],
     }
