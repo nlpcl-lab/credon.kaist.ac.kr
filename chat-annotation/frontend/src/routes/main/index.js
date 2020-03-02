@@ -172,13 +172,6 @@ class Main extends React.Component {
         turker_id: trimmedValue,
         scenario: newScenario,
       });
-      dispatch({
-        type: 'app/getAnnotation',
-        payload: {
-          turker_id: trimmedValue,
-          key: app.key,
-        },
-      });
     } else {
       dispatch({
         type: 'app/updateState',
