@@ -19,6 +19,7 @@ class Main extends React.Component {
       visible: false,
       editPath: '0.response.0',
       originalValue: '',
+      options: null,
     });
 
     this.state = {
@@ -128,11 +129,19 @@ class Main extends React.Component {
       });
       if (_.isArray(scenario[i].response)) {
         scenario[i].response.forEach((item, index) => {
+          let edit_path = null;
+          if (scenario[i].message.indexOf('turker-id') === -1 &&
+            (scenario[i].type === Config.constants.types.TYPING ||
+              scenario[i].type === Config.constants.types.CHOICE && scenario[i].options.length >= 2)) {
+            edit_path = `${i}.response.${index}`;
+          }
+
           messages.push({
             is_user: true,
-            edit_path: scenario[i].message.indexOf('turker-id') === -1 && scenario[i].type === Config.constants.types.TYPING ? `${i}.response.${index}` : null,
+            edit_path,
             text: item.text,
             updated_at: item.updated_at ? item.updated_at : '',
+            options: scenario[i].options,
           });
         });
       }
@@ -259,6 +268,7 @@ class Main extends React.Component {
         />
         <EditModal
           visible={editModal.visible}
+          options={editModal.options}
           originalValue={editModal.originalValue}
           updateValue={(value) => {
             const newScenario = _.cloneDeep(scenario);
@@ -328,7 +338,8 @@ class Main extends React.Component {
                           visible: true,
                           editPath: msg.edit_path,
                           originalValue: msg.text,
-                        }
+                          options: msg.options,
+                        },
                       });
                     }}
                   />
