@@ -225,7 +225,8 @@ class Main extends React.Component {
         /> : null;
     }
 
-    return <div className={styles.inputBox}>
+    return !isBotTyping && _.get(currentScene, 'type') === Config.constants.types.TYPING ?
+      <div className={styles.inputBox}>
       <TextArea
         value={input}
         autoSize={{
@@ -236,13 +237,13 @@ class Main extends React.Component {
         className={styles.input}
         placeholder="Type a message..."
       />
-      <div
-        className={styles.sendButton}
-        onClick={() => this.addMessage(input)}
-      >
-        Send
-      </div>
-    </div>;
+        <div
+          className={styles.sendButton}
+          onClick={() => this.addMessage(input)}
+        >
+          Send
+        </div>
+      </div> : null;
   };
 
 
