@@ -131,8 +131,9 @@ class Main extends React.Component {
         scenario[i].response.forEach((item, index) => {
           let edit_path = null;
           if (scenario[i].message.indexOf('turker-id') === -1 &&
-            (scenario[i].type === Config.constants.types.TYPING ||
-              scenario[i].type === Config.constants.types.CHOICE && scenario[i].options.length >= 2)) {
+            (scenario[i].type === Config.constants.types.TYPING
+              // || scenario[i].type === Config.constants.types.CHOICE && scenario[i].options.length >= 2
+            )) {
             edit_path = `${i}.response.${index}`;
           }
 
